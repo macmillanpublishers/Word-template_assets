@@ -6,3 +6,9 @@ Single-column list of Macmillan styles that are available in Bookmaker for PDFs.
 
 ## Styles_Mapping.json
 Maps old Macmillan template style names to new versions. Not currently live but will be added to Cleanup and Character Styles macros. Consists of two objects: `"renamed"` and `"removed"`; both contain `"old style name":"new style name"` pairs.
+
+## headings.json
+Keys are Macmillan styles that are acceptable section headings. Value is always "False". Used in vba_utilities/genUtils/Reports.bas
+
+## sections.json
+object keys are the FIRST word of Macmillan style-name sections. Each contains an aobject with the heading style that should precede a style in that section, as well as the text of that heading.
