@@ -19,6 +19,10 @@
       "text":"Bibliography",
       "headingStyle":"BM Head Nonprinting (bmhnp)"
       },
+    "BM": {
+      "text":"Appendix",
+      "headingStyle":"BM Head Nonprinting (bmhnp)"
+      },
     "BOB": {
       "text":"Back Ad",
       "headingStyle":"BM Head Nonprinting (bmhnp)"
