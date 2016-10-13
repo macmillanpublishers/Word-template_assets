@@ -25,5 +25,6 @@
     "Poem Title (vt)":"False",
     "FM Head Nonprinting (fmhnp)":"False",
     "BM Head Nonprinting (bmhnp)":"False",
-    "Dedication (ded)":"False"    
+    "Dedication (ded)":"False",
+    "Appendix Head (aph)":"False"
 }
