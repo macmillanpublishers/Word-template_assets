@@ -35,6 +35,10 @@
       "text":"Copyright",
       "headingStyle":"FM Head Nonprinting (fmhnp)"
       },
+    "Credits": {
+      "text":"About the Author",
+      "headingStyle":"BM Head Nonprinting (bmhnp)"
+      },
     "Dateline": {
       "text":"Chapter",
       "headingStyle":"Chap Title Nonprinting (ctnp)"
