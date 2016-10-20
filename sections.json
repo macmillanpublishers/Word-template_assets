@@ -28,7 +28,7 @@
       "headingStyle":"BM Head Nonprinting (bmhnp)"
       },
     "Chap": {
-      "text":"Chapter",
+      "text":"Section",
       "headingStyle":"Chap Title Nonprinting (ctnp)"
       },
     "Copyright": {
@@ -40,7 +40,7 @@
       "headingStyle":"BM Head Nonprinting (bmhnp)"
       },
     "Dateline": {
-      "text":"Chapter",
+      "text":"Section",
       "headingStyle":"Chap Title Nonprinting (ctnp)"
       },
     "Dedication": {
