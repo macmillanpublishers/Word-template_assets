@@ -26,5 +26,6 @@
     "FM Head Nonprinting (fmhnp)":"False",
     "BM Head Nonprinting (bmhnp)":"False",
     "Dedication (ded)":"False",
-    "Appendix Head (aph)":"False"
+    "Appendix Head (aph)":"False",
+    "Chap Title ALT (act)":"False"
 }
