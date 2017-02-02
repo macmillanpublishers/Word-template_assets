@@ -1,0 +1,6 @@
+2017-02-02 04:31:30      : run_macro -- macro: "autorun_ToJsonNew." Received file "C:\Users\matt\Desktop\Style_output\aa_Stylejson_files\testing_automation\WordTemplateStyles.xlsm", checking filetype.
+2017-02-02 04:31:34      : run_macro -- Macro "autorun_ToJsonNew" completed, exiting .ps1
+2017-02-02 04:31:36      : run_macro -- macro: "WriteTemplatefromJson." Received file "C:\Users\matt\Desktop\Style_output\aa_Stylejson_files\testing_automation\StyleTemplateCreator.docm", checking filetype.
+2017-02-02 04:32:46      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
+2017-02-02 04:32:47      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\matt\Desktop\Style_output\aa_Stylejson_files\testing_automation\StyleTemplateCreator.docm", checking filetype.
+2017-02-02 04:33:47      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
