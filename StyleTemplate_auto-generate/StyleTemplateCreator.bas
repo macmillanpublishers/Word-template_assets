@@ -188,11 +188,11 @@ Private Function localReadJson(JsonPath As String) As Dictionary
       Set dictJson = JsonConverter.ParseJson(strJson)
   Else
       ' If file exists but has no content, return empty dictionary
-      Set dictJson = ClassHelpers.NewDictionary
+      Set dictJson = New Dictionary
   End If
 
   If dictJson Is Nothing Then
-        DebugPrint "ReadJson fail"
+        Debug.Print "ReadJson fail"
   End If
   
   Set localReadJson = dictJson
