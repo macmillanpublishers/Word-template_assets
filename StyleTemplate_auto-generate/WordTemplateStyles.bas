@@ -82,7 +82,7 @@ Attribute UpdateRGBsamples.VB_ProcData.VB_Invoke_Func = "u\n14"
 
 End Sub
 
-Private Sub setupValidation()
+Public Sub applyDataValidations()
     ' Setup validation for a number of columns, based on search strings
     ' in rows 2 & 3, with a variety of validation types
     
@@ -110,7 +110,7 @@ Private Sub setupValidation()
     Excel.ActiveWorkbook.Sheets("Styles").UsedRange
     lngRowsUsed = shtMainSheet.UsedRange.Rows.Count
     
-    ' Get true flase ranges
+    ' Set validation ranges
     Set rngTF = CalcTargetRange("TRUE / FALSE", 2)
     Set rngNextPara = CalcTargetRange("NextParagraphStyle", 3)
     Set rngType = CalcTargetRange("1 is para, 2 is span", 2)
@@ -130,7 +130,7 @@ Private Sub setupValidation()
     Application.ScreenUpdating = False
     
     ' Validations were easy to line up by recording validations to test
-    'Apply True/false validation
+    ' Apply True/false validation
     With rngTF.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
@@ -478,7 +478,8 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
     strJson = JsonConverter.ConvertToJson(dict_Defaults, Whitespace:=2)
 
     ' Create output file path
-    strPath = ThisWorkbook.Path & Application.PathSeparator & strSheet & ".json"
+    'strPath = ThisWorkbook.Path & Application.PathSeparator & strSheet & ".json"
+    strPath = ThisWorkbook.Path & Application.PathSeparator & "macmillan.json"
 
     ' write string to file
     fnum = FreeFile
@@ -504,5 +505,11 @@ End Sub
 Private Sub autorun_ToJsonNew()
     'So if we call this script from outside of excel, the toJson macro doesn't hang on the msgbox!
     Call ToJsonNew(False)
+End Sub
+
+Public Sub WriteStylesToJson()
+    ' This is so we can still run the WriteStyles Macro directly from the "View Macros" menu-
+    ' Even though its public it wasn't appearing b/c of its parameter
+    Call ToJsonNew
 End Sub
 

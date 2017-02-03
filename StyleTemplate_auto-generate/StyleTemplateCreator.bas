@@ -200,15 +200,12 @@ Private Function localReadJson(JsonPath As String) As Dictionary
   
 End Function
 
-
-
-
 Public Sub ReadStylestoJson()
     ' NOTE: requirements for this sub are listed in comments under this moedule's "Declarations"
     ' This macro is to read all of the files from a Word Document
     ' It expcets some propoerties that are not available on Word for Mac
     ' So should be run on Word for PC
-    ' It reads styles from the ActiveDocument & writes to a 'Styles.json' file ..
+    ' It reads styles from the ActiveDocument & writes to a 'macmillan.json' file ..
     ' .. Located in the same dir as the active Document
     Dim dictStyle_dict As Dictionary
     Dim dictEmpty As Dictionary
@@ -226,9 +223,7 @@ Public Sub ReadStylestoJson()
     'how often we save and undo.clear on doc
     lngIncrement = 25
     ' JSON file path
-    strJsonPath = Word.ActiveDocument.Path & Application.PathSeparator & "Styles.json"
-    'strJsonPath = ThisDocument.Path & Application.PathSeparator & "Styles.json"
-    'strJsonPath = "C:\Users\Matt\Desktop\Style_output\style_export.json"
+    strJsonPath = Word.ActiveDocument.Path & Application.PathSeparator & "macmillan.json"
     ' initialize dicts & counter
     Set dictStyle_dict = New Dictionary
     Set dictEmpty = New Dictionary
@@ -431,7 +426,7 @@ End Sub
 
 Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = False)
     ' NOTE: requirements for this sub are listed in comments under this moedule's "Declarations"
-    ' When invoked this sub looks for a "Styles.json" file in the same dir as
+    ' When invoked this sub looks for a "macmillan.json" file in the same dir as
     ' "StyleTemplateCreator.docm".  It loads all of the styles form that json file
     ' and creates corresponding styles in a new macmillan.dotx template file
     ' (also in the same dir).  Then it writes cycles through the new styles in the .dotx
@@ -455,7 +450,7 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
     Dim objChecklistLT As ListTemplate
     
     ' file paths
-    strJsonPath = ThisDocument.Path & Application.PathSeparator & "Styles.json"
+    strJsonPath = ThisDocument.Path & Application.PathSeparator & "macmillan.json"
     If p_boolNoColor = False Then
         strNewFilePath = ThisDocument.Path & Application.PathSeparator & "macmillan.dotx"
     ElseIf p_boolNoColor = True Then
