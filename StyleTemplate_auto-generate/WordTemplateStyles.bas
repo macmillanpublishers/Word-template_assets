@@ -102,6 +102,7 @@ Public Sub applyDataValidations()
     Dim rngLLNum As Range
     Dim rngPriority As Range
     Dim rngWdKey As Range
+    Dim rngMsCodes As Range
     
     Workbooks("WordTemplateStyles.xlsm").Activate
     Worksheets("Styles").Activate
@@ -125,6 +126,7 @@ Public Sub applyDataValidations()
     Set rngPriority = CalcTargetRange("Priority", 3)
     Set rngTFalt = CalcTargetRange("_tf", 3)
     Set rngWdKey = CalcTargetRange("shortcut_keys__letter", 3)
+    Set rngMsCodes = CalcTargetRange("MS_Code", 3)
     
     ActiveSheet.Unprotect
     Application.ScreenUpdating = False
@@ -174,8 +176,8 @@ Public Sub applyDataValidations()
     'Apply type validation
     With rngType.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="1", Formula2:="2"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="1", Formula2:="2"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -216,8 +218,8 @@ Public Sub applyDataValidations()
     'Apply linestyle enumeration validation
     With rngLineStyle.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="24"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="24"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -230,8 +232,8 @@ Public Sub applyDataValidations()
     'Apply para Alignment enumeration validation
     With rngParaAlign.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="9"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="9"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -286,8 +288,8 @@ Public Sub applyDataValidations()
     'Apply priority validation
     With rngPriority.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="1", Formula2:="2"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="1", Formula2:="2"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -300,8 +302,8 @@ Public Sub applyDataValidations()
     'Apply llnumber enumeration validation
     With rngLLNum.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="0"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="0"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -311,11 +313,39 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-        'Apply wdkey enumeration validation
+    'Apply wdkey enumeration validation
     With rngWdKey.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
         xlBetween, Formula1:="=validation_menus!$D$2:$D$95"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = ""
+        .ShowInput = True
+        .ShowError = True
+    End With
+    'Apply wdkey enumeration validation
+    With rngWdKey.Validation
+    .Delete
+        .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
+        xlBetween, Formula1:="=validation_menus!$D$2:$D$95"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = ""
+        .ShowInput = True
+        .ShowError = True
+    End With
+    'Apply MS code validation for unique values.  These are hard-coded to column "E", b/c alternatives seemed onerous
+    With rngMsCodes.Validation
+    .Delete
+        .Add Type:=xlValidateCustom, AlertStyle:=xlValidAlertStop, Operator:= _
+        xlBetween, Formula1:="=COUNTIF($E:$E, E4)<=1"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -463,7 +493,7 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
     ' Loop through each column in row and write to Dictionary
     Set dict_Record = ColumnLoop(RowNum:=rowCount, StartColumn:=lngColStart)
 
-    ' Add dictionar¬sy to array or dictionary
+    ' Add dictionarÂsy to array or dictionary
     strKey1 = rngList.Cells(rowCount, 1).Value
     Debug.Print strKey1
     Set dict_Defaults.Item(strKey1) = dict_Record
