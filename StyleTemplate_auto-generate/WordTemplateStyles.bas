@@ -204,8 +204,8 @@ Public Sub applyDataValidations()
     'Apply outlinelevel validation
     With rngOutline.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="1", Formula2:="10"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="1", Formula2:="10"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -246,8 +246,8 @@ Public Sub applyDataValidations()
     'Apply para spacing enumeration validation
     With rngParaSpaceRule.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="5"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="5"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -493,7 +493,7 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
     ' Loop through each column in row and write to Dictionary
     Set dict_Record = ColumnLoop(RowNum:=rowCount, StartColumn:=lngColStart)
 
-    ' Add dictionarÂsy to array or dictionary
+    ' Add dictionary to array or dictionary
     strKey1 = rngList.Cells(rowCount, 1).Value
     Debug.Print strKey1
     Set dict_Defaults.Item(strKey1) = dict_Record
