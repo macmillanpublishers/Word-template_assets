@@ -23,7 +23,7 @@ End Function
 Private Function CalcTargetRange(p_strFindString As String, p_lngHeaderRow As Long) As Range
     ' This takes a search term and a number value for header row, it searches the header row
     ' and returns a range, for any columns where the searchstring matched the header, from the
-    ' cell below the header row to the last cell in use
+    ' cell below the header row to the last cell in use + 100 rows (for room to grow at the bottom)
     Dim lngLastColumn As Long
     Dim rngMyRange As Range
     Dim rngCell As Range
@@ -54,12 +54,12 @@ Private Function CalcTargetRange(p_strFindString As String, p_lngHeaderRow As Lo
         ' Make sure we found something
         If Not rngFoundRange Is Nothing Then
             Debug.Print "Found search string at " & rngFoundRange.column
-            ' set found range, from header cell where string was found to cell from last row used in that column
+            ' set found range, from header cell where string was found to cell from last row used in that column + 100 (room to grow)
             If lngN = 1 Then
-                Set rngTotalRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.column), Cells(lngRowsUsed, rngFoundRange.column))
+                Set rngTotalRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.column), Cells(lngRowsUsed + 100, rngFoundRange.column))
             ' merge any new found range with previous found range(s)
             ElseIf lngN > 1 Then
-                Set rngNewRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.column), Cells(lngRowsUsed, rngFoundRange.column))
+                Set rngNewRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.column), Cells(lngRowsUsed + 100, rngFoundRange.column))
                 Set rngTotalRange = Union(rngTotalRange, rngNewRange)
             End If
             lngN = lngN + 1
@@ -102,6 +102,8 @@ Public Sub applyDataValidations()
     Dim rngLLNum As Range
     Dim rngPriority As Range
     Dim rngWdKey As Range
+    Dim rngFontNames As Range
+    Dim rngStyleNameAndCode As Range
     
     Workbooks("WordTemplateStyles.xlsm").Activate
     Worksheets("Styles").Activate
@@ -125,6 +127,8 @@ Public Sub applyDataValidations()
     Set rngPriority = CalcTargetRange("Priority", 3)
     Set rngTFalt = CalcTargetRange("_tf", 3)
     Set rngWdKey = CalcTargetRange("shortcut_keys__letter", 3)
+    Set rngFontNames = CalcTargetRange("Font.Name", 3)
+    Set rngStyleNameAndCode = CalcTargetRange("Style_", 3)
     
     ActiveSheet.Unprotect
     Application.ScreenUpdating = False
@@ -157,7 +161,7 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply NextParagraph validation
+    'Apply NextParagraph validation - any existing style name
     With rngNextPara.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
@@ -171,11 +175,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply type validation
+    'Apply type validation : accept "1" or "2"
     With rngType.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="1", Formula2:="2"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="1", Formula2:="2"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -185,11 +189,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply points validation
+    'Apply points validation - any integer greater than 0
     With rngPoints.Validation
     .Delete
         .Add Type:=xlValidateDecimal, AlertStyle:=xlValidAlertStop, Operator _
-        :=xlGreaterEqual, Formula1:="0"
+        :=xlGreaterEqual, Formula1:="1"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -199,11 +203,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply outlinelevel validation
+    'Apply outlinelevel validation - any number between 1 & 10
     With rngOutline.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="1", Formula2:="10"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="1", Formula2:="10"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -213,11 +217,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply linestyle enumeration validation
+    'Apply linestyle enumeration validation - any int between 0 & 24
     With rngLineStyle.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="24"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="24"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -227,11 +231,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply para Alignment enumeration validation
+    'Apply para Alignment enumeration validation - any int between 0 & 9
     With rngParaAlign.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="9"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="9"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -241,11 +245,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply para spacing enumeration validation
+    'Apply para spacing enumeration validation - any int between 0 & 5
     With rngParaSpaceRule.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="5"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="5"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -255,7 +259,7 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply line width validation
+    'Apply line width validation - refer to range on validation_menus sheet
     With rngLineWidth.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
@@ -269,7 +273,7 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply basestyle validation
+    'Apply basestyle validation - refer to range on validation_menus sheet
     With rngBaseStyle.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
@@ -283,11 +287,13 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply priority validation
+    'Apply priority validation - any integer greater than 0
     With rngPriority.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="1", Formula2:="2"
+'        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+'        Operator:=xlBetween, Formula1:="1", Formula2:="2"
+        .Add Type:=xlValidateDecimal, AlertStyle:=xlValidAlertStop, Operator _
+        :=xlGreaterEqual, Formula1:="1"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -297,11 +303,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply llnumber enumeration validation
+    'Apply llnumber enumeration validation -must be 0 I think?
     With rngLLNum.Validation
     .Delete
-            .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
-            Operator:=xlBetween, Formula1:="0", Formula2:="0"
+        .Add Type:=xlValidateWholeNumber, AlertStyle:=xlValidAlertStop, _
+        Operator:=xlBetween, Formula1:="0", Formula2:="0"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -311,11 +317,53 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-        'Apply wdkey enumeration validation
+    'Apply wdkey enumeration validation -refer to range on validation_menus sheet
     With rngWdKey.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
         xlBetween, Formula1:="=validation_menus!$D$2:$D$95"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = ""
+        .ShowInput = True
+        .ShowError = True
+    End With
+    'Apply wdkey enumeration validation - refer to range on validation_menus sheet
+    With rngWdKey.Validation
+    .Delete
+        .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
+        xlBetween, Formula1:="=validation_menus!$D$2:$D$95"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = ""
+        .ShowInput = True
+        .ShowError = True
+    End With
+    'Apply fontName validation - refer to range on validation_menus sheet
+    With rngFontNames.Validation
+    .Delete
+        .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
+        xlBetween, Formula1:="=validation_menus!$E$2:$E$8"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = ""
+        .ShowInput = True
+        .ShowError = True
+    End With
+    'Apply validation for unique values for Style Names & Codes.  These are hard-coded to specific columns b/c alternatives seemed onerous
+    With rngStyleNameAndCode.Validation
+    .Delete
+        .Add Type:=xlValidateCustom, AlertStyle:=xlValidAlertStop, Operator:= _
+        xlBetween, Formula1:="=COUNTIF($C:$D, C4)<=1"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -334,6 +382,7 @@ Public Sub applyDataValidations()
         :=True, AllowFiltering:=True
 
 End Sub
+
 
 Private Sub Worksheet_Change(ByVal Target As Range)
     ' This sub should automatically update cells in Excel for Windows..  not Mac :(
@@ -463,7 +512,7 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
     ' Loop through each column in row and write to Dictionary
     Set dict_Record = ColumnLoop(RowNum:=rowCount, StartColumn:=lngColStart)
 
-    ' Add dictionar¬sy to array or dictionary
+    ' Add dictionary to array or dictionary
     strKey1 = rngList.Cells(rowCount, 1).Value
     Debug.Print strKey1
     Set dict_Defaults.Item(strKey1) = dict_Record

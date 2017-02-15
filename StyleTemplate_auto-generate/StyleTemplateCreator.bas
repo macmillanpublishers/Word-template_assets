@@ -478,6 +478,7 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
     Else
         lngIncrement = 50
     End If
+    
 
     ' Cycle through all styles in style_dict and create corresponding styles in new .dotx
     For a = 0 To dictStyle_dict.Count - 1
@@ -517,9 +518,10 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
                 .StylisticSet = wdStylisticSetDefault
                 .ContextualAlternates = 0
             End With
-            ' this style property does not exist in Word for MAc
+            ' these style properties do not exist in Word for MAc
             If Not IsMac Then
                 docTemplate.Styles(strStylename).QuickStyle = CBool(dictStyle_dict(strStylename).Item("QuickStyle"))
+                docTemplate.Styles(strStylename).Priority = dictStyle_dict(strStylename).Item("Priority")
             End If
         '''For Paragraph styles only:
         If dictStyle_dict(strStylename).Item("Type") = 1 Then
@@ -584,10 +586,6 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
                 End With
             End If
             docTemplate.Styles(strStylename).Frame.Delete
-            ' 'priority' is not a style property in Word for MAc
-            If Not IsMac Then
-                docTemplate.Styles(strStylename).Priority = 1
-            End If
             'Add bullets or checklist symbols by linking to our ListTemplates:
             If dictStyle_dict(strStylename).Item("Bullet") = True Then
                 docTemplate.Styles(strStylename).LinkToListTemplate _
@@ -615,9 +613,6 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
                     .Borders.Shadow = False
                 End With
             End If
-            If Not IsMac Then
-                docTemplate.Styles(strStylename).Priority = 2
-            End If
         End If
         docTemplate.Styles(strStylename).LanguageID = wdEnglishUS
         docTemplate.Styles(strStylename).NoProofing = CBool(dictStyle_dict(strStylename).Item("NoProofing"))
@@ -640,7 +635,7 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
             docTemplate.UndoClear
             docTemplate.Save
         End If
-    Next
+    Next a
     'Debug.Print "Styles created!"
 
     '''Cycle through again to update styles properties dependent on other styles being present:
@@ -649,7 +644,7 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
         If dictStyle_dict(strStylename_C).Item("Type") = 1 Then
             docTemplate.Styles(strStylename_C).NextParagraphStyle = dictStyle_dict(strStylename_C).Item("NextParagraphStyle")
         End If
-    Next
+    Next c
 
     docTemplate.UndoClear
     docTemplate.Save
@@ -686,7 +681,10 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
         End If
     Next
     Debug.Print "Demo paragraphs written & styled!"
-
+    
+    '''Lower priority of built in styles to 9
+    Call LowerPriorityBuiltInStyles(docTemplate)
+    
     docTemplate.Save
     Application.ScreenUpdating = True
 
@@ -798,4 +796,18 @@ Private Function CreateListTemplate(LTname As String, numFormat As String, fontN
     Set CreateListTemplate = objListTemplate
 
 End Function
+
+Private Sub LowerPriorityBuiltInStyles(docTemplate As Document)
+Dim q As Long
+
+'''Set Priority for all built-in styles to 9
+For q = 1 To docTemplate.Styles.Count
+If docTemplate.Styles(q).BuiltIn = True Then
+    docTemplate.Styles(q).Priority = 9
+End If
+Next q
+
+docTemplate.UndoClear
+
+End Sub
 
