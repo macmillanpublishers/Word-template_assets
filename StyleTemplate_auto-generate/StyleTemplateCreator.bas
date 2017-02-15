@@ -441,7 +441,6 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
     Dim b As Long
     Dim c As Long
     Dim n As Long
-    Dim k As Long
     Dim lngIncrement As Long
     Dim strStylename As String
     Dim strStylename_B As String
