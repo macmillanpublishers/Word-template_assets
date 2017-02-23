@@ -465,10 +465,13 @@ Private Function ColumnLoop(RowNum As Long, StartColumn As Long) As Dictionary
 
   ' key is always column header
     strKey = rngList.Cells(3, colCount).Value
-    Debug.Print strKey
-    strValue = rngList.Cells(RowNum, colCount).Value
-    Debug.Print strValue
-    dict_Return.Item(strKey) = strValue
+    'make sure our key has a value
+    If strKey <> vbNullString Then
+        Debug.Print strKey
+        strValue = rngList.Cells(RowNum, colCount).Value
+        Debug.Print strValue
+        dict_Return.Item(strKey) = strValue
+    End If
   Next colCount
 
   Set ColumnLoop = dict_Return
@@ -517,8 +520,11 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
 
     ' Add dictionary to array or dictionary
     strKey1 = rngList.Cells(rowCount, 1).Value
-    Debug.Print strKey1
-    Set dict_Defaults.Item(strKey1) = dict_Record
+    ' make sure our row has a value in A1
+    If strKey1 <> vbNullString Then
+        Debug.Print strKey1
+        Set dict_Defaults.Item(strKey1) = dict_Record
+    End If
 
     Next rowCount
 
