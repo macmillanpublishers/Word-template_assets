@@ -133,6 +133,9 @@ Public Sub applyDataValidations()
     ActiveSheet.Unprotect
     Application.ScreenUpdating = False
     
+    'Reset existing validations!
+    Cells.Validation.Delete
+    
     ' Validations were easy to line up by recording validations to test
     ' Apply True/false validation
     With rngTF.Validation
@@ -189,11 +192,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply points validation - any integer greater than 0
+    'Apply points validation - any number >= 0
     With rngPoints.Validation
     .Delete
         .Add Type:=xlValidateDecimal, AlertStyle:=xlValidAlertStop, Operator _
-        :=xlGreaterEqual, Formula1:="1"
+        :=xlGreaterEqual, Formula1:="0"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
