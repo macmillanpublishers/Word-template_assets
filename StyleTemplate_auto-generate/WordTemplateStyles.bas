@@ -133,6 +133,9 @@ Public Sub applyDataValidations()
     ActiveSheet.Unprotect
     Application.ScreenUpdating = False
     
+    'Reset existing validations!
+    Cells.Validation.Delete
+    
     ' Validations were easy to line up by recording validations to test
     ' Apply True/false validation
     With rngTF.Validation
@@ -189,11 +192,11 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    'Apply points validation - any integer greater than 0
+    'Apply points validation - any number >= 0
     With rngPoints.Validation
     .Delete
         .Add Type:=xlValidateDecimal, AlertStyle:=xlValidAlertStop, Operator _
-        :=xlGreaterEqual, Formula1:="1"
+        :=xlGreaterEqual, Formula1:="0"
         .IgnoreBlank = True
         .InCellDropdown = True
         .InputTitle = ""
@@ -462,10 +465,13 @@ Private Function ColumnLoop(RowNum As Long, StartColumn As Long) As Dictionary
 
   ' key is always column header
     strKey = rngList.Cells(3, colCount).Value
-    Debug.Print strKey
-    strValue = rngList.Cells(RowNum, colCount).Value
-    Debug.Print strValue
-    dict_Return.Item(strKey) = strValue
+    'make sure our key has a value
+    If strKey <> vbNullString Then
+        Debug.Print strKey
+        strValue = rngList.Cells(RowNum, colCount).Value
+        Debug.Print strValue
+        dict_Return.Item(strKey) = strValue
+    End If
   Next colCount
 
   Set ColumnLoop = dict_Return
@@ -514,8 +520,11 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
 
     ' Add dictionary to array or dictionary
     strKey1 = rngList.Cells(rowCount, 1).Value
-    Debug.Print strKey1
-    Set dict_Defaults.Item(strKey1) = dict_Record
+    ' make sure our row has a value in A1
+    If strKey1 <> vbNullString Then
+        Debug.Print strKey1
+        Set dict_Defaults.Item(strKey1) = dict_Record
+    End If
 
     Next rowCount
 
