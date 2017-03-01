@@ -515,7 +515,7 @@ Private Function HTMLcolumnLoopB(ColNum As Long, StartRow As Long) As Collection
 
   For rowCount = StartRow To rngList.Rows.Count
     If rngList.Cells(rowCount, ColNum).Value = True Then
-        coll.Add rngList.Cells(rowCount, lngClassCol).Value
+        coll.Add "." & rngList.Cells(rowCount, lngClassCol).Value
     End If
   Next rowCount
 
@@ -539,7 +539,7 @@ Private Function HTMLcolumnLoopA(ColNum As Long, StartRow As Long) As Dictionary
 
   For rowCount = StartRow To rngList.Rows.Count
     If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
-        strKey = rngList.Cells(rowCount, lngClassCol).Value
+        strKey = "." & rngList.Cells(rowCount, lngClassCol).Value
         strValue = rngList.Cells(rowCount, ColNum).Value
         dict_Return.Item(strKey) = strValue
     End If
