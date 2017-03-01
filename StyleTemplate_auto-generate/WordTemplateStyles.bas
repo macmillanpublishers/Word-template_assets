@@ -53,13 +53,13 @@ Private Function CalcTargetRange(p_strFindString As String, p_lngHeaderRow As Lo
         ' Debug.Print rngFoundRange.Address
         ' Make sure we found something
         If Not rngFoundRange Is Nothing Then
-            Debug.Print "Found search string at " & rngFoundRange.column
+            Debug.Print "Found search string at " & rngFoundRange.Column
             ' set found range, from header cell where string was found to cell from last row used in that column + 100 (room to grow)
             If lngN = 1 Then
-                Set rngTotalRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.column), Cells(lngRowsUsed + 100, rngFoundRange.column))
+                Set rngTotalRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
             ' merge any new found range with previous found range(s)
             ElseIf lngN > 1 Then
-                Set rngNewRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.column), Cells(lngRowsUsed + 100, rngFoundRange.column))
+                Set rngNewRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
                 Set rngTotalRange = Union(rngTotalRange, rngNewRange)
             End If
             lngN = lngN + 1
@@ -70,6 +70,14 @@ Private Function CalcTargetRange(p_strFindString As String, p_lngHeaderRow As Lo
      
     Set CalcTargetRange = rngTotalRange
 
+End Function
+
+Function getColumnByHeadingValue(p_strFindString As String, p_lngHeaderRow As Long) As Long
+    ' Returns index # for a column with Contents in a given row,
+    ' exactly matching given string
+        
+    getColumnByHeadingValue = Sheet1.Cells(p_lngHeaderRow, 1).EntireRow.Find(What:=p_strFindString, LookIn:=xlValues, LookAt:=xlWhole).Column
+  
 End Function
 
 Public Sub UpdateRGBsamples()
@@ -89,7 +97,8 @@ Public Sub applyDataValidations()
     Dim shtMainSheet As Worksheet
     Dim lngRowsUsed As Long
     Dim rngTF As Range
-    Dim rngTFalt As Range
+    Dim rngTF_B As Range
+    Dim rngTF_C As Range
     Dim rngNextPara As Range
     Dim rngType As Range
     Dim rngPoints As Range
@@ -114,6 +123,7 @@ Public Sub applyDataValidations()
     
     ' Set validation ranges
     Set rngTF = CalcTargetRange("TRUE / FALSE", 2)
+    Set rngTF_B = CalcTargetRange("TRUE/FALSE", 2)
     Set rngNextPara = CalcTargetRange("NextParagraphStyle", 3)
     Set rngType = CalcTargetRange("1 is para, 2 is span", 2)
     Set rngPoints = CalcTargetRange("unit is points", 2)
@@ -125,7 +135,7 @@ Public Sub applyDataValidations()
     Set rngBaseStyle = CalcTargetRange("BaseStyle", 3)
     Set rngLLNum = CalcTargetRange("ListLevelNumber", 3)
     Set rngPriority = CalcTargetRange("Priority", 3)
-    Set rngTFalt = CalcTargetRange("_tf", 3)
+    Set rngTF_C = CalcTargetRange("_tf", 3)
     Set rngWdKey = CalcTargetRange("shortcut_keys__letter", 3)
     Set rngFontNames = CalcTargetRange("Font.Name", 3)
     Set rngStyleNameAndCode = CalcTargetRange("Style_", 3)
@@ -151,7 +161,20 @@ Public Sub applyDataValidations()
         .ShowInput = True
         .ShowError = True
     End With
-    With rngTFalt.Validation
+    With rngTF_B.Validation
+    .Delete
+        .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
+        xlBetween, Formula1:="=validation_menus!$A$2:$A$3"
+        .IgnoreBlank = True
+        .InCellDropdown = True
+        .InputTitle = ""
+        .ErrorTitle = ""
+        .InputMessage = ""
+        .ErrorMessage = ""
+        .ShowInput = True
+        .ShowError = True
+    End With
+    With rngTF_C.Validation
     .Delete
         .Add Type:=xlValidateList, AlertStyle:=xlValidAlertStop, Operator:= _
         xlBetween, Formula1:="=validation_menus!$A$2:$A$3"
@@ -452,7 +475,7 @@ Private Function ChangeColorRange(p_rngTarget As Range, p_boolFontOnly As Boolea
     Next
 
 End Function
-Private Function ColumnLoop(RowNum As Long, StartColumn As Long) As Dictionary
+Private Function StylesColumnLoop(RowNum As Long, StartColumn As Long) As Dictionary
   ' This sub borrowed and pared down from Erica's for creating jsons frm excel
   ' Creates dictionary of row contents (key = column heading)
   Dim colCount As Long
@@ -466,7 +489,7 @@ Private Function ColumnLoop(RowNum As Long, StartColumn As Long) As Dictionary
   ' key is always column header
     strKey = rngList.Cells(3, colCount).Value
     'make sure our key has a value
-    If strKey <> vbNullString Then
+    If strKey <> vbNullString And Not (strKey Like "html.*") Then
         Debug.Print strKey
         strValue = rngList.Cells(RowNum, colCount).Value
         Debug.Print strValue
@@ -474,11 +497,61 @@ Private Function ColumnLoop(RowNum As Long, StartColumn As Long) As Dictionary
     End If
   Next colCount
 
-  Set ColumnLoop = dict_Return
+  Set StylesColumnLoop = dict_Return
 End Function
 
 
-Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
+Private Function HTMLcolumnLoopB(ColNum As Long, StartRow As Long) As Collection
+  ' This sub borrowed and pared down from Erica's for creating jsons frm excel
+  ' Creates collection of Classes in 'Class' column based on "TRUE" markers in
+  ' in a given column's cells
+  ' HTMLcolumnLoopA does the nested dict version of this for top level heads
+  Dim rowCount As Long
+  Dim coll As New Collection
+  Dim lngClassCol As Long
+  
+  ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+  lngClassCol = getColumnByHeadingValue("Class", 2)
+
+  For rowCount = StartRow To rngList.Rows.Count
+    If rngList.Cells(rowCount, ColNum).Value = True Then
+        coll.Add rngList.Cells(rowCount, lngClassCol).Value
+    End If
+  Next rowCount
+
+  Set HTMLcolumnLoopB = coll
+End Function
+
+
+
+Private Function HTMLcolumnLoopA(ColNum As Long, StartRow As Long) As Dictionary
+  ' This sub borrowed and pared down from Erica's for creating jsons frm excel
+  ' Creates dictionary of column contents (key = ClassName)
+  Dim rowCount As Long
+  Dim strKey As String
+  Dim strValue As String
+  Dim dict_Return As Dictionary
+  Set dict_Return = New Dictionary
+    
+  ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+  Dim lngClassCol As Long
+  lngClassCol = getColumnByHeadingValue("Class", 2)
+
+  For rowCount = StartRow To rngList.Rows.Count
+    If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
+        strKey = rngList.Cells(rowCount, lngClassCol).Value
+        strValue = rngList.Cells(rowCount, ColNum).Value
+        dict_Return.Item(strKey) = strValue
+    End If
+  Next rowCount
+
+  Set HTMLcolumnLoopA = dict_Return
+End Function
+
+
+
+
+Public Sub StylesToJSON(Optional p_boolUserInteract As Boolean = True)
   ' This sub borrowed and pared down from Erica's for creating jsons frm excel
     ' Creates an array of objects, each object uses header for key and
     ' one object for each row. Column headers are keys.
@@ -515,16 +588,16 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
 
     ' Start at 4, header row, property info rows: don't count
     For rowCount = 4 To rngList.Rows.Count
-    ' Loop through each column in row and write to Dictionary
-    Set dict_Record = ColumnLoop(RowNum:=rowCount, StartColumn:=lngColStart)
-
-    ' Add dictionary to array or dictionary
-    strKey1 = rngList.Cells(rowCount, 1).Value
-    ' make sure our row has a value in A1
-    If strKey1 <> vbNullString Then
-        Debug.Print strKey1
-        Set dict_Defaults.Item(strKey1) = dict_Record
-    End If
+        ' set the key to value in col A
+        strKey1 = rngList.Cells(rowCount, 1).Value
+        ' make sure our row has a value in A1
+        If strKey1 <> vbNullString Then
+            ' Loop through each column in row and write to Dictionary
+            Set dict_Record = StylesColumnLoop(RowNum:=rowCount, StartColumn:=lngColStart)
+            ' Add dictionary to array or dictionary
+            Debug.Print strKey1
+            Set dict_Defaults.Item(strKey1) = dict_Record
+        End If
 
     Next rowCount
 
@@ -560,14 +633,123 @@ Public Sub ToJsonNew(Optional p_boolUserInteract As Boolean = True)
     
 End Sub
 
-Private Sub autorun_ToJsonNew()
+Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
+  ' This sub borrowed and pared down from Erica's for creating jsons frm excel
+  ' Scans for two types of columns: "html.toplevelheads"
+  '   (writes a nested hash with toplevelheads as key)
+  ' or others with values matching "html.*" (creates a hash with colname as key)
+  ' Writes dict to json.
+  ' "p_boolUserInteract" parameter is so we can disable msgbox if autorunning via powershell
+    
+    Workbooks("WordTemplateStyles.xlsm").Activate
+    Worksheets("Styles").Activate
+    
+    ActiveSheet.Unprotect
+    Application.ScreenUpdating = False
+    
+    ' Get active range
+    Range("A1").Activate
+    Set rngList = ActiveCell.CurrentRegion
+    
+    ' Determine which sheet we're working with, set variables
+    Dim strSheet As String
+    strSheet = ActiveSheet.Name
+    Debug.Print "strSheet is : " & strSheet
+    
+    'set first row of non-header contents in sheet, & header row
+    Dim lngHeader_KeyRow As Long
+    Dim lngRowStart As Long
+    lngRowStart = 4
+    lngHeader_KeyRow = 3
+    
+    ' we're returning an object, not an array, so create dictionary
+    Dim dict_Defaults As Dictionary
+    Set dict_Defaults = New Dictionary
+
+    ' Dim dict and collection for each record/row's hash or array- for dict "value"
+    Dim dict_Record As Dictionary
+    Dim coll_Record As Collection
+    
+    ' Loop through columns
+    Dim colCount As Long
+    Dim lngIndex As Long
+    Dim strColHeader As String
+    Dim strKey1 As String
+
+    For colCount = 1 To rngList.Columns.Count
+        ' get column header name
+        strColHeader = rngList.Cells(lngHeader_KeyRow, colCount).Value
+        ' rename for use as key, without the "html." signifier
+        strKey1 = Replace(strColHeader, "html.", "")
+        
+        ' find Col with header "toplevelheads" first
+        If strColHeader = "html.toplevelheads" Then
+            ' Loop through each row in column and write any values to Dictionary
+            Set dict_Record = HTMLcolumnLoopA(ColNum:=colCount, StartRow:=lngRowStart)
+            ' Add dictionary as value for toplevelheads Key
+            Set dict_Defaults.Item(strKey1) = dict_Record
+            
+        'find all other Cols with "html.*"
+        ElseIf strColHeader Like "html.*" Then
+            ' Loop through each row in column and write to Dictionary
+            Set coll_Record = HTMLcolumnLoopB(ColNum:=colCount, StartRow:=lngRowStart)
+            ' Add collection as value for key
+            Set dict_Defaults.Item(strKey1) = coll_Record
+            
+        End If
+    Next colCount
+
+    ' Convert to json
+    Dim strJson As String
+    Dim fnum As Long
+    Dim strPath As String
+
+    strJson = JsonConverter.ConvertToJson(dict_Defaults, Whitespace:=2)
+
+    ' Create output file path
+    strPath = ThisWorkbook.Path & Application.PathSeparator & "style_config.json"
+
+    ' write string to file
+    fnum = FreeFile
+    ' creates the file if it doesn't exist, overwrites if it does
+    Open strPath For Output Access Write As #fnum
+    Print #fnum, strJson
+    Close #fnum
+
+    If p_boolUserInteract = True Then
+        MsgBox "Done exporting to json!"
+    End If
+
+    Application.ScreenUpdating = True
+    ActiveSheet.Protect DrawingObjects:=True, Contents:=True, Scenarios:=True _
+        , AllowFormattingCells:=True, AllowFormattingColumns:=True, _
+        AllowFormattingRows:=True, AllowInsertingColumns:=True, AllowInsertingRows _
+        :=True, AllowDeletingColumns:=True, AllowDeletingRows:=True, AllowSorting _
+        :=True, AllowFiltering:=True
+
+End Sub
+
+
+Private Sub autorun_HTMLmappingsToJSON()
     'So if we call this script from outside of excel, the toJson macro doesn't hang on the msgbox!
-    Call ToJsonNew(False)
+    Call HTMLmappingsToJSON(False)
+End Sub
+
+Public Sub WriteHTMLmappingsToJSON()
+    ' This is so we can still run the HTMLmappings Macro directly from the "View Macros" menu-
+    ' Even though its public it wasn't appearing b/c of its parameter
+    Call HTMLmappingsToJSON
+End Sub
+
+
+Private Sub autorun_StylesToJSON()
+    'So if we call this script from outside of excel, the toJson macro doesn't hang on the msgbox!
+    Call StylesToJSON(False)
 End Sub
 
 Public Sub WriteStylesToJson()
     ' This is so we can still run the WriteStyles Macro directly from the "View Macros" menu-
     ' Even though its public it wasn't appearing b/c of its parameter
-    Call ToJsonNew
+    Call StylesToJSON
 End Sub
 
