@@ -10,7 +10,7 @@ param([string]$application, [string]$working_filename, [string]$macroName)
 #$macroName="WriteTemplatefromJson"
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
-$logfilename = "stylemacros_logfile.txt"
+$logfilename = "createTemplate_logfile.txt"
 $working_file = "$($scriptPath)\$($working_filename)"
 $logfile="$($scriptPath)\$($logfilename)"
 $workfile_fixed=$working_file -replace '/','\'
