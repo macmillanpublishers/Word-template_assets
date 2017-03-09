@@ -208,5 +208,8 @@
     ".Section-About-Authorsaa": "appendix",
     ".Section-Back-Adsba": "appendix",
     ".Section-Indexsin": "index"
-  }
+  },
+  "footnotetextselector": [
+    "div.footnote"
+  ]
 }
