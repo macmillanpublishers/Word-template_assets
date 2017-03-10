@@ -56,10 +56,10 @@ Private Function CalcTargetRange(p_strFindString As String, p_lngHeaderRow As Lo
             Debug.Print "Found search string at " & rngFoundRange.Column
             ' set found range, from header cell where string was found to cell from last row used in that column + 100 (room to grow)
             If lngN = 1 Then
-                Set rngTotalRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
+                Set rngTotalRange = Range(Cells(4, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
             ' merge any new found range with previous found range(s)
             ElseIf lngN > 1 Then
-                Set rngNewRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
+                Set rngNewRange = Range(Cells(4, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
                 Set rngTotalRange = Union(rngTotalRange, rngNewRange)
             End If
             lngN = lngN + 1
@@ -489,7 +489,7 @@ Private Function StylesColumnLoop(RowNum As Long, StartColumn As Long) As Dictio
   ' key is always column header
     strKey = rngList.Cells(3, colCount).Value
     'make sure our key has a value
-    If strKey <> vbNullString And Not (strKey Like "html.*") Then
+    If Not (strKey Like "no_export*") And Not (strKey Like "html.*") Then
         Debug.Print strKey
         strValue = rngList.Cells(RowNum, colCount).Value
         Debug.Print strValue
