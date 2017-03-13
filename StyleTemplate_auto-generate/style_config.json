@@ -179,6 +179,10 @@
   "omitparas": [
     ".SectionBreaksbr"
   ],
+  "versatileblockparas": [
+    ".BookmakerProcessingInstructionbpi",
+    ".SpaceBreak-Internalint"
+  ],
   "toplevelheads": {
     ".Section-Front-Salessfs": "preface",
     ".Section-Halftitlesht": "halftitlepage",
