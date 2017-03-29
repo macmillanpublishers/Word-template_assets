@@ -179,6 +179,10 @@
   "omitparas": [
     ".SectionBreaksbr"
   ],
+  "versatileblockparas": [
+    ".BookmakerProcessingInstructionbpi",
+    ".SpaceBreak-Internalint"
+  ],
   "toplevelheads": {
     ".Section-Front-Salessfs": "preface",
     ".Section-Halftitlesht": "halftitlepage",
@@ -208,5 +212,8 @@
     ".Section-About-Authorsaa": "appendix",
     ".Section-Back-Adsba": "appendix",
     ".Section-Indexsin": "index"
-  }
+  },
+  "footnotetextselector": [
+    "div.footnote"
+  ]
 }

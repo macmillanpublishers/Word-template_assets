@@ -56,10 +56,10 @@ Private Function CalcTargetRange(p_strFindString As String, p_lngHeaderRow As Lo
             Debug.Print "Found search string at " & rngFoundRange.Column
             ' set found range, from header cell where string was found to cell from last row used in that column + 100 (room to grow)
             If lngN = 1 Then
-                Set rngTotalRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
+                Set rngTotalRange = Range(Cells(4, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
             ' merge any new found range with previous found range(s)
             ElseIf lngN > 1 Then
-                Set rngNewRange = Range(Cells(p_lngHeaderRow + 1, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
+                Set rngNewRange = Range(Cells(4, rngFoundRange.Column), Cells(lngRowsUsed + 100, rngFoundRange.Column))
                 Set rngTotalRange = Union(rngTotalRange, rngNewRange)
             End If
             lngN = lngN + 1
@@ -489,7 +489,7 @@ Private Function StylesColumnLoop(RowNum As Long, StartColumn As Long) As Dictio
   ' key is always column header
     strKey = rngList.Cells(3, colCount).Value
     'make sure our key has a value
-    If strKey <> vbNullString And Not (strKey Like "html.*") Then
+    If Not (strKey Like "no_export.*") And Not (strKey Like "html.*") Then
         Debug.Print strKey
         strValue = rngList.Cells(RowNum, colCount).Value
         Debug.Print strValue
@@ -676,28 +676,34 @@ Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
     Dim strColHeader As String
     Dim strKey1 As String
 
+    ' Populate our htmlmappings json with data from columns!
     For colCount = 1 To rngList.Columns.Count
         ' get column header name
         strColHeader = rngList.Cells(lngHeader_KeyRow, colCount).Value
         ' rename for use as key, without the "html." signifier
         strKey1 = Replace(strColHeader, "html.", "")
         
-        ' find Col with header "toplevelheads" first
+        ' find Col with header "toplevelheads" first - needs to be a nested hash (aka dict)
         If strColHeader = "html.toplevelheads" Then
             ' Loop through each row in column and write any values to Dictionary
             Set dict_Record = HTMLcolumnLoopA(ColNum:=colCount, StartRow:=lngRowStart)
             ' Add dictionary as value for toplevelheads Key
             Set dict_Defaults.Item(strKey1) = dict_Record
             
-        'find all other Cols with "html.*"
+        'find all other Cols with "html.*- these are arrays so we use a collection"
         ElseIf strColHeader Like "html.*" Then
-            ' Loop through each row in column and write to Dictionary
+            ' Loop through each row in column and write to Collection
             Set coll_Record = HTMLcolumnLoopB(ColNum:=colCount, StartRow:=lngRowStart)
             ' Add collection as value for key
             Set dict_Defaults.Item(strKey1) = coll_Record
             
         End If
     Next colCount
+    
+    ' Add hardcoded key/value to json for footnotes
+    Dim coll_footnoteSelector As New Collection
+    coll_footnoteSelector.Add ("div.footnote")
+    Set dict_Defaults.Item("footnotetextselector") = coll_footnoteSelector
 
     ' Convert to json
     Dim strJson As String
