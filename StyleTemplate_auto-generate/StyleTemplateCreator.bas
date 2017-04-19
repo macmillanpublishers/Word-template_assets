@@ -441,6 +441,7 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
     Dim b As Long
     Dim c As Long
     Dim n As Long
+    Dim k As Long
     Dim lngIncrement As Long
     Dim strStylename As String
     Dim strStylename_B As String
@@ -467,6 +468,9 @@ Private Function WriteTemplatefromJsonCore(Optional p_boolNoColor As Boolean = F
         :=False, SaveNativePictureFormat:=False, SaveFormsData:=False, _
         SaveAsAOCELetter:=False, CompatibilityMode:=15
 
+    ' Add the version of the template
+    AddVersionNumber docTemplate
+    
     ' read in the json data
     Set dictStyle_dict = localReadJson(strJsonPath)
     ' create list templates for adding bullets to styles
@@ -811,3 +815,17 @@ docTemplate.UndoClear
 
 End Sub
 
+' ===== AddVersionNumber ======================================================
+' Reads version number from text file, adds to template as doc property.
+' Objects passed By Ref by default so will update same object as is passed.
+
+Private Sub AddVersionNumber(docNewTemplate As Document)
+  Dim strVersionFileFullPath As String
+  Dim strVersionNumber As String
+  
+  ' version file is same name, same directory, different extension.
+  strVersionFileFullPath = VBA.Replace(docNewTemplate.FullName, ".dotx", ".txt")
+  strVersionNumber = localReadTextFile(Path:=strVersionFileFullPath)
+  docNewTemplate.CustomDocumentProperties.Add Name:="Version", LinkToContent:=False, _
+    Type:=msoPropertyTypeString, Value:=strVersionNumber
+End Sub
