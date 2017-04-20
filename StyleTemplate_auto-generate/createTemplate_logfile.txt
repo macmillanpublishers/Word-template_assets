@@ -4,3 +4,35 @@
 2017-02-02 04:32:46      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
 2017-02-02 04:32:47      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\matt\Desktop\Style_output\aa_Stylejson_files\testing_automation\StyleTemplateCreator.docm", checking filetype.
 2017-02-02 04:33:47      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
+2017-04-19 12:59:56      : run_macro -- macro: "autorun_StylesToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:00:01      : run_macro -- Macro "autorun_StylesToJSON" completed, exiting .ps1
+2017-04-19 01:00:02      : run_macro -- macro: "autorun_HTMLmappingsToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:00:05      : run_macro -- Macro "autorun_HTMLmappingsToJSON" completed, exiting .ps1
+2017-04-19 01:00:07      : run_macro -- macro: "WriteTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:02:56      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:02:57      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:05:50      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:07:18      : run_macro -- macro: "autorun_StylesToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:07:23      : run_macro -- Macro "autorun_StylesToJSON" completed, exiting .ps1
+2017-04-19 01:07:24      : run_macro -- macro: "autorun_HTMLmappingsToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:07:26      : run_macro -- Macro "autorun_HTMLmappingsToJSON" completed, exiting .ps1
+2017-04-19 01:07:28      : run_macro -- macro: "WriteTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:08:39      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:08:40      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:09:42      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:15:08      : run_macro -- macro: "autorun_StylesToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:15:12      : run_macro -- Macro "autorun_StylesToJSON" completed, exiting .ps1
+2017-04-19 01:15:14      : run_macro -- macro: "autorun_HTMLmappingsToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:15:17      : run_macro -- Macro "autorun_HTMLmappingsToJSON" completed, exiting .ps1
+2017-04-19 01:15:18      : run_macro -- macro: "WriteTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:16:25      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:16:26      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:17:26      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:45:37      : run_macro -- macro: "autorun_StylesToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:45:41      : run_macro -- Macro "autorun_StylesToJSON" completed, exiting .ps1
+2017-04-19 01:45:42      : run_macro -- macro: "autorun_HTMLmappingsToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-04-19 01:45:45      : run_macro -- Macro "autorun_HTMLmappingsToJSON" completed, exiting .ps1
+2017-04-19 01:45:46      : run_macro -- macro: "WriteTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:46:54      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
+2017-04-19 01:46:55      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-04-19 01:47:56      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
