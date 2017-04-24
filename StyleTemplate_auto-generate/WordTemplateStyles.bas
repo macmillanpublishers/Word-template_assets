@@ -12,7 +12,7 @@ Private Function get24bitColorXLS(p_strRGB) As String
     Dim lngBitColor As Long
     
     'split rgb string into array
-    arrRGB = Split(p_strRGB, ",")
+    arrRGB = split(p_strRGB, ",")
     
     'use RGB function to get 24Bit color value
     lngBitColor = RGB(CInt(arrRGB(0)), CInt(arrRGB(1)), CInt(arrRGB(2)))
@@ -434,7 +434,7 @@ Private Function ChangeColorRange(p_rngTarget As Range, p_boolFontOnly As Boolea
             ' this whole next block is to validate our rgb string
             ' make sure we have a string that has two commas
             If Len(strRGB) - Len(Replace(strRGB, ",", "")) = 2 Then
-                strRGBsplit = Split(strRGB, ",")
+                strRGBsplit = split(strRGB, ",")
                 For lngA = 0 To 2
                     ' make each string item  (split on commas) is numeric
                     If IsNumeric(strRGBsplit(lngA)) Then
@@ -524,30 +524,72 @@ End Function
 
 
 
-Private Function HTMLcolumnLoopA(ColNum As Long, StartRow As Long) As Dictionary
-  ' This sub borrowed and pared down from Erica's for creating jsons frm excel
-  ' Creates dictionary of column contents (key = ClassName)
-  Dim rowCount As Long
-  Dim strKey As String
-  Dim strValue As String
-  Dim dict_Return As Dictionary
-  Set dict_Return = New Dictionary
+Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildColName As String, parentDict As Dictionary) As Dictionary
+    ' This sub borrowed and changed from Erica's for creating jsons frm excel
+    ' Creates a subdict dictionary of column contents (key = column cihldName (passed value)
+    ' nests that subdict in a collection named for the SectionStart classname (passed value)
+    ' adds them all to back to the dict that was passed in; adds subdict/collection to existing or creates new as needed
+    Dim rowCount As Long
+    Dim strKey As String
+    Dim strValue As String
+    Dim coll_Return As Collection
+    Dim dict_subReturn
     
-  ' Get the index # for column with contents in Row 2 exactly matching: "Class"
-  Dim lngClassCol As Long
-  lngClassCol = getColumnByHeadingValue("Class", 2)
-
-  For rowCount = StartRow To rngList.Rows.Count
-    If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
-        strKey = "." & rngList.Cells(rowCount, lngClassCol).Value
-        strValue = rngList.Cells(rowCount, ColNum).Value
-        dict_Return.Item(strKey) = strValue
-    End If
-  Next rowCount
-
-  Set HTMLcolumnLoopA = dict_Return
+    ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+    Dim lngClassCol As Long
+    lngClassCol = getColumnByHeadingValue("Class", 2)
+    
+    For rowCount = StartRow To rngList.Rows.Count
+        If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
+            ' reset our subDict for each row with values found
+            Set dict_subReturn = New Dictionary
+            strKey = "." & rngList.Cells(rowCount, lngClassCol).Value
+            strValue = rngList.Cells(rowCount, ColNum).Value
+            If Not parentDict.Exists(strKey) Then
+                 'reset our Collection to empty
+                Set coll_Return = New Collection
+                ' setup subdict with key:value pair (key is nested child column name, value is from the cell)
+                 dict_subReturn.Item(nestedChildColName) = strValue
+                ' add  subdict to new collection
+                coll_Return.Add dict_subReturn
+                ' add the collection to the parent dictionary with named as Section class
+                parentDict(strKey) = coll_Return
+            Else
+                ' collection and nested dict already exist, here's how you add to them:
+                parentDict(strKey).Item(1)(nestedChildColName) = strValue
+            End If
+        End If
+    Next rowCount
+    
+    Set HTMLcolumnLoopC = parentDict
 End Function
 
+
+
+'Private Function HTMLcolumnLoopA(ColNum As Long, StartRow As Long) As Dictionary
+'  ' This sub borrowed and pared down from Erica's for creating jsons frm excel
+'  ' no longer in use (replaced by LoopC)
+'  ' Creates dictionary of column contents (key = ClassName)
+'  Dim rowCount As Long
+'  Dim strKey As String
+'  Dim strValue As String
+'  Dim dict_Return As Dictionary
+'  Set dict_Return = New Dictionary
+'
+'  ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+'  Dim lngClassCol As Long
+'  lngClassCol = getColumnByHeadingValue("Class", 2)
+'
+'  For rowCount = StartRow To rngList.Rows.Count
+'    If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
+'        strKey = "." & rngList.Cells(rowCount, lngClassCol).Value
+'        strValue = rngList.Cells(rowCount, ColNum).Value
+'        dict_Return.Item(strKey) = strValue
+'    End If
+'  Next rowCount
+'
+'  Set HTMLcolumnLoopA = dict_Return
+'End Function
 
 
 
@@ -635,8 +677,9 @@ End Sub
 
 Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
   ' This sub borrowed and pared down from Erica's for creating jsons frm excel
-  ' Scans for two types of columns: "html.toplevelheads"
-  '   (writes a nested hash with toplevelheads as key)
+  ' Scans for columns Like: "html.*.*"
+  '   (writes a collection of SectionStart Classnames with nested dicts from values in any columns matching the
+  '   middle part of the name (the first asterisk))
   ' or others with values matching "html.*" (creates a hash with colname as key)
   ' Writes dict to json.
   ' "p_boolUserInteract" parameter is so we can disable msgbox if autorunning via powershell
@@ -675,7 +718,10 @@ Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
     Dim lngIndex As Long
     Dim strColHeader As String
     Dim strKey1 As String
-
+    Dim strColHeaderParent As String
+    Dim strColHeaderChild As String
+    Dim dict_ParentRecord As Dictionary
+    
     ' Populate our htmlmappings json with data from columns!
     For colCount = 1 To rngList.Columns.Count
         ' get column header name
@@ -683,12 +729,27 @@ Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
         ' rename for use as key, without the "html." signifier
         strKey1 = Replace(strColHeader, "html.", "")
         
-        ' find Col with header "toplevelheads" first - needs to be a nested hash (aka dict)
-        If strColHeader = "html.toplevelheads" Then
-            ' Loop through each row in column and write any values to Dictionary
-            Set dict_Record = HTMLcolumnLoopA(ColNum:=colCount, StartRow:=lngRowStart)
-            ' Add dictionary as value for toplevelheads Key
-            Set dict_Defaults.Item(strKey1) = dict_Record
+'        ' find Col with header "toplevelheads" first - needs to be a nested hash (aka dict)
+'        If strColHeader = "html.toplevelheads" Then
+'            ' Loop through each row in column and write any values to Dictionary
+'            Set dict_Record = HTMLcolumnLoopA(ColNum:=colCount, StartRow:=lngRowStart)
+'            ' Add dictionary as value for toplevelheads Key
+'            Set dict_Defaults.Item(strKey1) = dict_Record
+            
+        ' switching from above LoopA to get the new nested Collection>dict combo for toplevelheads
+        If strColHeader Like "html.*.*" Then
+            ' this will be the parent dict name
+            strColHeaderParent = split(strColHeader, ".")(1)
+            ' this will be passed to the function and used as the inner-dict key
+            strColHeaderChild = split(strColHeader, ".")(2)
+            If Not dict_Defaults.Exists(strColHeaderParent) Then
+                Set dict_ParentRecord = New Dictionary
+            End If
+            ' Loop through each row in column and write values to nested dict
+            ' Passing the top level dict (parentrecord) in and out to add to existing subdicts
+            Set dict_ParentRecord = HTMLcolumnLoopC(ColNum:=colCount, StartRow:=lngRowStart, nestedChildColName:=strColHeaderChild, parentDict:=dict_ParentRecord)
+            ' Add this dict to the main one
+            Set dict_Defaults.Item(strColHeaderParent) = dict_ParentRecord
             
         'find all other Cols with "html.*- these are arrays so we use a collection"
         ElseIf strColHeader Like "html.*" Then
