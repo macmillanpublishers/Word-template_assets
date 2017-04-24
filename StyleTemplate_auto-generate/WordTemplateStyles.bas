@@ -553,7 +553,7 @@ Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildCo
                 ' add  subdict to new collection
                 coll_Return.Add dict_subReturn
                 ' add the collection to the parent dictionary with named as Section class
-                parentDict(strKey) = coll_Return
+                Set parentDict(strKey) = coll_Return
             Else
                 ' collection and nested dict already exist, here's how you add to them:
                 parentDict(strKey).Item(1)(nestedChildColName) = strValue
