@@ -184,34 +184,173 @@
     ".SpaceBreak-Internalint"
   ],
   "toplevelheads": {
-    ".Section-Front-Salessfs": "preface",
-    ".Section-Halftitlesht": "halftitlepage",
-    ".Section-Series-Pagessp": "preface",
-    ".Section-Ad-Cardsac": "preface",
-    ".Section-Titlepagesti": "titlepage",
-    ".Section-Copyrightscr": "copyright-page",
-    ".Section-Dedicationsde": "dedication",
-    ".Section-Epigraphsepi": "preface",
-    ".Section-Contentsstc": "preface",
-    ".Section-Forewordsfw": "foreword",
-    ".Section-Prefacespf": "preface",
-    ".Section-Blank-Pagesbl": "preface",
-    ".Section-Intro-Frontmattersif": "introduction",
-    ".Section-Intro-Chaptersic": "chapter",
-    ".Section-Partspt": "part",
-    ".Section-Chapterscp": "chapter",
-    ".Section-Conclusionscl": "conclusion",
-    ".Section-Appendixsap": "appendix",
-    ".Section-Afterwordsaw": "afterword",
-    ".Section-Acknowledgmentssak": "acknowledgments",
-    ".Section-Glossarysgl": "glossary",
-    ".Section-Notessnt": "appendix",
-    ".Section-Bibliographysbi": "bibliography",
-    ".Section-Excerpt-Openerseo": "appendix",
-    ".Section-Excerpt-Chaptersec": "appendix",
-    ".Section-About-Authorsaa": "appendix",
-    ".Section-Back-Adsba": "appendix",
-    ".Section-Indexsin": "index"
+    ".Section-Front-Salessfs": [
+      {
+        "type": "preface",
+        "label": "Front Sales",
+        "class": "frontsales"
+      }
+    ],
+    ".Section-Halftitlesht": [
+      {
+        "type": "halftitlepage",
+        "label": "Half Title Page"
+      }
+    ],
+    ".Section-Series-Pagessp": [
+      {
+        "type": "preface",
+        "label": "Series Page",
+        "class": "seriespage"
+      }
+    ],
+    ".Section-Ad-Cardsac": [
+      {
+        "type": "preface",
+        "label": "Ad Card",
+        "class": "adcard"
+      }
+    ],
+    ".Section-Titlepagesti": [
+      {
+        "type": "titlepage",
+        "label": "Title Page"
+      }
+    ],
+    ".Section-Copyrightscr": [
+      {
+        "type": "copyright-page",
+        "label": "Copyright Page"
+      }
+    ],
+    ".Section-Dedicationsde": [
+      {
+        "type": "dedication",
+        "label": "Dedication"
+      }
+    ],
+    ".Section-Epigraphsepi": [
+      {
+        "type": "preface",
+        "label": "Epigraph",
+        "class": "epigraph"
+      }
+    ],
+    ".Section-Contentsstc": [
+      {
+        "type": "preface",
+        "label": "Contents",
+        "class": "contents"
+      }
+    ],
+    ".Section-Forewordsfw": [
+      {
+        "type": "foreword"
+      }
+    ],
+    ".Section-Prefacespf": [
+      {
+        "type": "preface"
+      }
+    ],
+    ".Section-Blank-Pagesbl": [
+      {
+        "type": "preface",
+        "class": "blankpage"
+      }
+    ],
+    ".Section-Intro-Frontmattersif": [
+      {
+        "type": "introduction"
+      }
+    ],
+    ".Section-Intro-Chaptersic": [
+      {
+        "type": "chapter",
+        "label": "Introduction"
+      }
+    ],
+    ".Section-Partspt": [
+      {
+        "type": "part"
+      }
+    ],
+    ".Section-Chapterscp": [
+      {
+        "type": "chapter"
+      }
+    ],
+    ".Section-Conclusionscl": [
+      {
+        "type": "conclusion",
+        "label": "Conclusion"
+      }
+    ],
+    ".Section-Appendixsap": [
+      {
+        "type": "appendix"
+      }
+    ],
+    ".Section-Afterwordsaw": [
+      {
+        "type": "afterword"
+      }
+    ],
+    ".Section-Acknowledgmentssak": [
+      {
+        "type": "acknowledgments"
+      }
+    ],
+    ".Section-Glossarysgl": [
+      {
+        "type": "glossary"
+      }
+    ],
+    ".Section-Notessnt": [
+      {
+        "type": "appendix",
+        "label": "Notes",
+        "class": "notes"
+      }
+    ],
+    ".Section-Bibliographysbi": [
+      {
+        "type": "bibliography"
+      }
+    ],
+    ".Section-Excerpt-Openerseo": [
+      {
+        "type": "appendix",
+        "label": "Excerpt Introduction",
+        "class": "excerptopener"
+      }
+    ],
+    ".Section-Excerpt-Chaptersec": [
+      {
+        "type": "appendix",
+        "label": "Excerpt",
+        "class": "excerptchapter"
+      }
+    ],
+    ".Section-About-Authorsaa": [
+      {
+        "type": "appendix",
+        "label": "About the Author",
+        "class": "abouttheauthor"
+      }
+    ],
+    ".Section-Back-Adsba": [
+      {
+        "type": "appendix",
+        "label": "Ad",
+        "class": "backad"
+      }
+    ],
+    ".Section-Indexsin": [
+      {
+        "type": "index"
+      }
+    ]
   },
   "footnotetextselector": [
     "div.footnote"
