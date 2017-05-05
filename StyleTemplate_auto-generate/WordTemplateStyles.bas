@@ -501,7 +501,7 @@ Private Function StylesColumnLoop(RowNum As Long, StartColumn As Long) As Dictio
 End Function
 
 
-Private Function HTMLcolumnLoopB(ColNum As Long, StartRow As Long) As Collection
+Private Function HTMLcolumnLoopB(ColNum As Long, StartRow As Long, Optional blnVBAoutput As Boolean = False) As Collection
   ' This sub borrowed and pared down from Erica's for creating jsons frm excel
   ' Creates collection of Classes in 'Class' column based on "TRUE" markers in
   ' in a given column's cells
@@ -510,12 +510,16 @@ Private Function HTMLcolumnLoopB(ColNum As Long, StartRow As Long) As Collection
   Dim coll As New Collection
   Dim lngClassCol As Long
   
-  ' Get the index # for column with contents in Row 2 exactly matching: "Class"
-  lngClassCol = getColumnByHeadingValue("Class", 2)
-
+  If blnVBAoutput = False Then
+    ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+    lngClassCol = getColumnByHeadingValue("Class", 2)
+  Else
+    lngClassCol = getColumnByHeadingValue("Full_Style_Name", 3)
+  End If
+  
   For rowCount = StartRow To rngList.Rows.Count
     If rngList.Cells(rowCount, ColNum).Value = True Then
-        coll.Add "." & rngList.Cells(rowCount, lngClassCol).Value
+        coll.Add rngList.Cells(rowCount, lngClassCol).Value
     End If
   Next rowCount
 
@@ -524,7 +528,8 @@ End Function
 
 
 
-Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildColName As String, parentDict As Dictionary) As Dictionary
+Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildColName As String, parentDict As Dictionary, _
+  Optional blnVBAoutput As Boolean = False) As Dictionary
     ' This sub borrowed and changed from Erica's for creating jsons frm excel
     ' Creates a subdict dictionary of column contents (key = column cihldName (passed value)
     ' nests that subdict in a collection named for the SectionStart classname (passed value)
@@ -534,16 +539,21 @@ Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildCo
     Dim strValue As String
     Dim coll_Return As Collection
     Dim dict_subReturn
-    
-    ' Get the index # for column with contents in Row 2 exactly matching: "Class"
     Dim lngClassCol As Long
-    lngClassCol = getColumnByHeadingValue("Class", 2)
+
+    If blnVBAoutput = False Then
+      ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+      lngClassCol = getColumnByHeadingValue("Class", 2)
+    Else
+      ' Get index for "Full_Style_Name"
+      lngClassCol = getColumnByHeadingValue("Full_Style_Name", 3)
+    End If
     
     For rowCount = StartRow To rngList.Rows.Count
         If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
             ' reset our subDict for each row with values found
             Set dict_subReturn = New Dictionary
-            strKey = "." & rngList.Cells(rowCount, lngClassCol).Value
+            strKey = rngList.Cells(rowCount, lngClassCol).Value
             strValue = rngList.Cells(rowCount, ColNum).Value
             If Not parentDict.Exists(strKey) Then
                  'reset our Collection to empty
@@ -675,7 +685,7 @@ Public Sub StylesToJSON(Optional p_boolUserInteract As Boolean = True)
     
 End Sub
 
-Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
+Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True, Optional p_boolOutputForVBA As Boolean = False)
   ' This sub borrowed and pared down from Erica's for creating jsons frm excel
   ' Scans for columns Like: "html.*.*"
   '   (writes a collection of SectionStart Classnames with nested dicts from values in any columns matching the
@@ -683,6 +693,7 @@ Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
   ' or others with values matching "html.*" (creates a hash with colname as key)
   ' Writes dict to json.
   ' "p_boolUserInteract" parameter is so we can disable msgbox if autorunning via powershell
+  ' "p_boolOutputForVBA" parameter is so we can create a version with style names instead of class names for VBA
     
     Workbooks("WordTemplateStyles.xlsm").Activate
     Worksheets("Styles").Activate
@@ -747,14 +758,15 @@ Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
             End If
             ' Loop through each row in column and write values to nested dict
             ' Passing the top level dict (parentrecord) in and out to add to existing subdicts
-            Set dict_ParentRecord = HTMLcolumnLoopC(ColNum:=colCount, StartRow:=lngRowStart, nestedChildColName:=strColHeaderChild, parentDict:=dict_ParentRecord)
+            Set dict_ParentRecord = HTMLcolumnLoopC(ColNum:=colCount, StartRow:=lngRowStart, _
+              nestedChildColName:=strColHeaderChild, parentDict:=dict_ParentRecord, blnVBAoutput:=p_boolOutputForVBA)
             ' Add this dict to the main one
             Set dict_Defaults.Item(strColHeaderParent) = dict_ParentRecord
             
         'find all other Cols with "html.*- these are arrays so we use a collection"
         ElseIf strColHeader Like "html.*" Then
             ' Loop through each row in column and write to Collection
-            Set coll_Record = HTMLcolumnLoopB(ColNum:=colCount, StartRow:=lngRowStart)
+            Set coll_Record = HTMLcolumnLoopB(ColNum:=colCount, StartRow:=lngRowStart, blnVBAoutput:=p_boolOutputForVBA)
             ' Add collection as value for key
             Set dict_Defaults.Item(strKey1) = coll_Record
             
@@ -770,11 +782,18 @@ Public Sub HTMLmappingsToJSON(Optional p_boolUserInteract As Boolean = True)
     Dim strJson As String
     Dim fnum As Long
     Dim strPath As String
+    Dim strFile As String
 
     strJson = JsonConverter.ConvertToJson(dict_Defaults, Whitespace:=2)
 
     ' Create output file path
-    strPath = ThisWorkbook.Path & Application.PathSeparator & "style_config.json"
+    If p_boolOutputForVBA = False Then
+      strFile = "style_config.json"
+    Else
+      strFile = "vba_style_config.json"
+    End If
+    
+    strPath = ThisWorkbook.Path & Application.PathSeparator & strFile
 
     ' write string to file
     fnum = FreeFile
@@ -808,6 +827,16 @@ Public Sub WriteHTMLmappingsToJSON()
     Call HTMLmappingsToJSON
 End Sub
 
+Private Sub autorun_VBAmappingsToJson()
+    'So if we call this script from outside of excel, the toJson macro doesn't hang on the msgbox!
+    Call HTMLmappingsToJSON(p_boolUserInteract:=False, p_boolOutputForVBA:=True)
+End Sub
+
+Public Sub WriteVBAmappingsToJSON()
+    ' This is so we can still run the HTMLmappings Macro directly from the "View Macros" menu-
+    ' Even though its public it wasn't appearing b/c of its parameter
+    Call HTMLmappingsToJSON(p_boolOutputForVBA:=True)
+End Sub
 
 Private Sub autorun_StylesToJSON()
     'So if we call this script from outside of excel, the toJson macro doesn't hang on the msgbox!

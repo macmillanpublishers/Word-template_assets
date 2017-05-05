@@ -1,0 +1,358 @@
+{
+  "partheads": [
+    "Section-Part (spt)"
+  ],
+  "headingparas": [
+    "About Author Text Head (atah)",
+    "Ad Card Main Head (acmh)",
+    "Appendix Head (aph)",
+    "BM Head (bmh)",
+    "BM Head ALT (abmh)",
+    "BM Head Nonprinting (bmhnp)",
+    "BOB Ad Title (bobt)",
+    "Chap Title (ct)",
+    "Chap Title ALT (act)",
+    "Chap Title Nonprinting (ctnp)",
+    "FM Head (fmh)",
+    "FM Head ALT (afmh)",
+    "FM Head Nonprinting (fmhnp)",
+    "Front Sales Title (fst)",
+    "Halftitle Book Title (htit)",
+    "Part Number (pn)",
+    "Part Title (pt)",
+    "Titlepage Book Title (tit)",
+    "Volume Number (voln)",
+    "Volume Title (volt)"
+  ],
+  "extractparas": [
+    "BOB Ad Quote (bobq)",
+    "BOB Ad Quote Head (bobqh)",
+    "BOB Ad Quote No-Indent (bobq1)",
+    "BOB Ad Quote Source (bobqs)",
+    "Extract - Bullet List (extbl)",
+    "Extract - Business Card (extbc)",
+    "Extract - Diary (extd)",
+    "Extract - Email (extem)",
+    "Extract - Email Heading (emh)",
+    "Extract - Headline (exthl)",
+    "Extract - Inscription (ins)",
+    "Extract - Newspaper (news)",
+    "Extract - Note (extn)",
+    "Extract - Note Head (extnh)",
+    "Extract - Num List (extnl)",
+    "Extract - Schedule of Events (sch)",
+    "Extract - Song Lyric (extsl)",
+    "Extract - Telegram (tel)",
+    "Extract - Transcript (trans)",
+    "Extract - Verse or Poetry (extv)",
+    "Extract - Website (extws)",
+    "Extract (ext)",
+    "Extract Head (exth)",
+    "Extract Source (exts)",
+    "Extract-No Indent (ext1)",
+    "Letter Ext Address (ladd)",
+    "Letter Ext Body Text (ltx)",
+    "Letter Ext Body Text No-Indent (ltx1)",
+    "Letter Ext Closing (lcl)",
+    "Letter Ext Dateline (ldl)",
+    "Letter Ext General (extl)",
+    "Letter Ext Headnote (hn)",
+    "Letter Ext Postscript (lps)",
+    "Letter Ext Salutation (lsa)",
+    "Letter Ext Signature (lsig)"
+  ],
+  "epigraphparas": [
+    "Chap Epigraph - non-verse (cepi)",
+    "Chap Epigraph - verse (cepiv)",
+    "Chap Epigraph Source (ceps)",
+    "Epigraph - non-verse (epi)",
+    "Epigraph - verse (epiv)",
+    "Epigraph in Text - non-verse (tepi)",
+    "Epigraph in Text - Source (teps)",
+    "Epigraph in Text - verse (tepiv)",
+    "Epigraph Source (eps)",
+    "FM Epigraph - non-verse (fmepi)",
+    "FM Epigraph - verse (fmepiv)",
+    "FM Epigraph Source (fmeps)",
+    "Part Epigraph - non-verse (pepi)",
+    "Part Epigraph - verse (pepiv)",
+    "Part Epigraph Source (peps)"
+  ],
+  "poetryparas": [
+    "Poem Dateline (vdl)",
+    "Poem Dedication (vded)",
+    "Poem Epigraph - non-verse (vepi)",
+    "Poem Epigraph - verse (vepiv)",
+    "Poem Epigraph Source (veps)",
+    "Poem Level-1 Subhead (vh1)",
+    "Poem Level-2 Subhead (vh2)",
+    "Poem Level-3 Subhead (vh3)",
+    "Poem Level-4 Subhead (vh4)",
+    "Poem Level-5 Subhead (vh5)",
+    "Poem Numeric Subheads (vhn)",
+    "Poem Subtitle (vst)",
+    "Poem Title (vt)",
+    "Verse Run-in Text (vrtx)",
+    "Verse Run-in Text No-Indent (vrtx1)",
+    "Verse Text (vtx)"
+  ],
+  "boxparas": [
+    "Box Epigraph - non-verse (bepi)",
+    "Box Epigraph - verse (bepiv)",
+    "Box Epigraph Source (beps)",
+    "Box Extract - Verse (bextv)",
+    "Box Extract (bext)",
+    "Box Footnote (bfn)",
+    "Box Head - Level-1 (bh1)",
+    "Box Head - Level-2 (bh2)",
+    "Box Head - Level-3 (bh3)",
+    "Box Head - Level-4 (bh4)",
+    "Box Head - Level-5 (bh5)",
+    "Box Head (bh)",
+    "Box List Bullet (bbl)",
+    "Box List Num (bnl)",
+    "Box List Unnum (bul)",
+    "Box Source Note (bsn)",
+    "Box Subhead (bsh)",
+    "Box Text (btx)",
+    "Box Text No-Indent (btx1)"
+  ],
+  "sidebarparas": [
+    "Sidebar Epigraph - non-verse (sbepi)",
+    "Sidebar Epigraph - verse (sbepiv)",
+    "Sidebar Epigraph Source (sbeps)",
+    "Sidebar Extract - Verse (sbextv)",
+    "Sidebar Extract (sbext)",
+    "Sidebar Footnote (sbfn)",
+    "Sidebar Head - Level-1 (sbh1)",
+    "Sidebar Head - Level-2 (sbh2)",
+    "Sidebar Head - Level-3 (sbh3)",
+    "Sidebar Head - Level-4 (sbh4)",
+    "Sidebar Head - Level-5 (sbh5)",
+    "Sidebar Head (sbh)",
+    "Sidebar List Bullet (sbbl)",
+    "Sidebar List Num (sbnl)",
+    "Sidebar List Unnum (sbul)",
+    "Sidebar Source Note (sbsn)",
+    "Sidebar Subhead (sbsh)",
+    "Sidebar Text (sbtx)",
+    "Sidebar Text No-Indent (sbtx1)"
+  ],
+  "illustrationparas": [
+    "Caption (cap)",
+    "Illustration Credits Text (ilctx)",
+    "Illustration Credits Text No-Indent (ilctx1)",
+    "Illustration holder (ill)",
+    "Illustration Source (is)"
+  ],
+  "imageholders": [
+    "Illustration holder (ill)"
+  ],
+  "captionparas": [
+    "Caption (cap)"
+  ],
+  "illustrationsrcparas": [
+    "Illustration Source (is)"
+  ],
+  "unorderedlistparas": [
+    "Appendix List Bullet (apbl)",
+    "Box List Bullet (bbl)",
+    "Extract - Bullet List (extbl)",
+    "List Bullet (bl)",
+    "Sidebar List Bullet (sbbl)"
+  ],
+  "orderedlistparas": [
+    "Appendix List Num (apnl)",
+    "Box List Num (bnl)",
+    "Extract - Num List (extnl)",
+    "List Alpha (al)",
+    "List Num (nl)",
+    "Sidebar List Num (sbnl)"
+  ],
+  "unorderedsublistparas": [
+    "List Bullet Subentry (bsl)"
+  ],
+  "orderedsublistparas": [
+    "List Alpha Subentry (asl)",
+    "List Num Subentry (nsl)"
+  ],
+  "omitparas": [
+    "Section Break (sbr)"
+  ],
+  "versatileblockparas": [
+    "Bookmaker Processing Instruction (bpi)",
+    "Space Break - Internal (int)"
+  ],
+  "toplevelheads": {
+    "Section-Front-Sales (sfs)": [
+      {
+        "type": "preface",
+        "label": "Front Sales",
+        "class": "frontsales"
+      }
+    ],
+    "Section-Halftitle (sht)": [
+      {
+        "type": "halftitlepage",
+        "label": "Half Title Page"
+      }
+    ],
+    "Section-Series-Page (ssp)": [
+      {
+        "type": "preface",
+        "label": "Series Page",
+        "class": "seriespage"
+      }
+    ],
+    "Section-Ad-Card (sac)": [
+      {
+        "type": "preface",
+        "label": "Ad Card",
+        "class": "adcard"
+      }
+    ],
+    "Section-Titlepage (sti)": [
+      {
+        "type": "titlepage",
+        "label": "Title Page"
+      }
+    ],
+    "Section-Copyright (scr)": [
+      {
+        "type": "copyright-page",
+        "label": "Copyright Page"
+      }
+    ],
+    "Section-Dedication (sde)": [
+      {
+        "type": "dedication",
+        "label": "Dedication"
+      }
+    ],
+    "Section-Epigraph (sepi)": [
+      {
+        "type": "preface",
+        "label": "Epigraph",
+        "class": "epigraph"
+      }
+    ],
+    "Section-Contents (stc)": [
+      {
+        "type": "preface",
+        "label": "Contents",
+        "class": "contents"
+      }
+    ],
+    "Section-Foreword (sfw)": [
+      {
+        "type": "foreword"
+      }
+    ],
+    "Section-Preface (spf)": [
+      {
+        "type": "preface"
+      }
+    ],
+    "Section-Blank-Page (sbl)": [
+      {
+        "type": "preface",
+        "class": "blankpage"
+      }
+    ],
+    "Section-Intro-Frontmatter (sif)": [
+      {
+        "type": "introduction"
+      }
+    ],
+    "Section-Intro-Chapter (sic)": [
+      {
+        "type": "chapter",
+        "label": "Introduction"
+      }
+    ],
+    "Section-Part (spt)": [
+      {
+        "type": "part"
+      }
+    ],
+    "Section-Chapter (scp)": [
+      {
+        "type": "chapter"
+      }
+    ],
+    "Section-Conclusion (scl)": [
+      {
+        "type": "conclusion",
+        "label": "Conclusion"
+      }
+    ],
+    "Section-Appendix (sap)": [
+      {
+        "type": "appendix"
+      }
+    ],
+    "Section-Afterword (saw)": [
+      {
+        "type": "afterword"
+      }
+    ],
+    "Section-Acknowledgments (sak)": [
+      {
+        "type": "acknowledgments"
+      }
+    ],
+    "Section-Glossary (sgl)": [
+      {
+        "type": "glossary"
+      }
+    ],
+    "Section-Notes (snt)": [
+      {
+        "type": "appendix",
+        "label": "Notes",
+        "class": "notes"
+      }
+    ],
+    "Section-Bibliography (sbi)": [
+      {
+        "type": "bibliography"
+      }
+    ],
+    "Section-Excerpt-Opener (seo)": [
+      {
+        "type": "appendix",
+        "label": "Excerpt Introduction",
+        "class": "excerptopener"
+      }
+    ],
+    "Section-Excerpt-Chapter (sec)": [
+      {
+        "type": "appendix",
+        "label": "Excerpt",
+        "class": "excerptchapter"
+      }
+    ],
+    "Section-About-Author (saa)": [
+      {
+        "type": "appendix",
+        "label": "About the Author",
+        "class": "abouttheauthor"
+      }
+    ],
+    "Section-Back-Ad (sba)": [
+      {
+        "type": "appendix",
+        "label": "Ad",
+        "class": "backad"
+      }
+    ],
+    "Section-Index (sin)": [
+      {
+        "type": "index"
+      }
+    ]
+  },
+  "footnotetextselector": [
+    "div.footnote"
+  ]
+}
