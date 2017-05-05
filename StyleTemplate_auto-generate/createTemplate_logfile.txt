@@ -36,3 +36,13 @@
 2017-04-19 01:46:54      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
 2017-04-19 01:46:55      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
 2017-04-19 01:47:56      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
+2017-05-05 01:46:08      : run_macro -- macro: "autorun_StylesToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-05-05 01:46:11      : run_macro -- Macro "autorun_StylesToJSON" completed, exiting .ps1
+2017-05-05 01:46:30      : run_macro -- macro: "autorun_HTMLmappingsToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-05-05 01:46:32      : run_macro -- Macro "autorun_HTMLmappingsToJSON" completed, exiting .ps1
+2017-05-05 01:46:33      : run_macro -- macro: "autorun_VBAmappingsToJSON." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\WordTemplateStyles.xlsm", checking filetype.
+2017-05-05 01:46:35      : run_macro -- Macro "autorun_VBAmappingsToJSON" completed, exiting .ps1
+2017-05-05 01:46:56      : run_macro -- macro: "WriteTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-05-05 01:47:43      : run_macro -- Macro "WriteTemplatefromJson" completed, exiting .ps1
+2017-05-05 01:47:44      : run_macro -- macro: "WriteNoColorTemplatefromJson." Received file "C:\Users\erica.warren\Documents\GitHub\Word-template_assets\StyleTemplate_auto-generate\StyleTemplateCreator.docm", checking filetype.
+2017-05-05 01:48:25      : run_macro -- Macro "WriteNoColorTemplatefromJson" completed, exiting .ps1
