@@ -352,22 +352,6 @@
       }
     ]
   },
-  "vbaversatileparas": [
-    "Bookmaker Processing Instruction (bpi)",
-    "Caption (cap)",
-    "Design Note (dn)",
-    "Illustration Credits Text (ilctx)",
-    "Illustration Credits Text No-Indent (ilctx1)",
-    "Illustration holder (ill)",
-    "Illustration Source (is)",
-    "Page Break (pb)",
-    "Section Break (sbr)",
-    "Space Break - Internal (int)",
-    "Space Break - Print Only (#po)",
-    "Space Break (#)",
-    "Space Break with ALT Ornament (orn2)",
-    "Space Break with Ornament (orn)"
-  ],
   "footnotetextselector": [
     "div.footnote"
   ]
