@@ -352,6 +352,22 @@
       }
     ]
   },
+  "vbaversatileparas": [
+    ".BookmakerProcessingInstructionbpi",
+    ".Captioncap",
+    ".DesignNotedn",
+    ".IllustrationCreditsTextilctx",
+    ".IllustrationCreditsTextNo-Indentilctx1",
+    ".Illustrationholderill",
+    ".IllustrationSourceis",
+    ".PageBreakpb",
+    ".SectionBreaksbr",
+    ".SpaceBreak-Internalint",
+    ".SpaceBreak-PrintOnlypo",
+    ".SpaceBreak",
+    ".SpaceBreakwithALTOrnamentorn2",
+    ".SpaceBreakwithOrnamentorn"
+  ],
   "footnotetextselector": [
     "div.footnote"
   ]
