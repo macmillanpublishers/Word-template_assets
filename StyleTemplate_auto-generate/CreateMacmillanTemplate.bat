@@ -27,6 +27,10 @@ echo "Exporting bookmaker HTML-mappings to style_config.json ... Should be <10 s
 PowerShell -NoProfile -ExecutionPolicy Bypass -Command "%mypath%runMacro_Wd-or-Xls_NoSave.ps1 excel WordTemplateStyles.xlsm autorun_HTMLmappingsToJSON"
 echo "Done exporting to style_config.json!" & echo.
 
+echo "Exporting VBA style-mappings to vba_style_config.json ... Should be <10 seconds"
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "%mypath%runMacro_Wd-or-Xls_NoSave.ps1 excel WordTemplateStyles.xlsm autorun_VBAmappingsToJSON"
+echo "Done exporting to vba_style_config.json!" & echo.
+
 echo "(Re)creating macmillan.dotm ... this should take 60-90 seconds"
 timeout /t 1 /nobreak > NUL & echo.
 echo "Keep your eye on this window for the all clear!"
