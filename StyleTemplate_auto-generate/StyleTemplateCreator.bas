@@ -807,7 +807,7 @@ Dim q As Long
 '''Set Priority for all built-in styles to 9
 For q = 1 To docTemplate.Styles.Count
 If docTemplate.Styles(q).BuiltIn = True Then
-    docTemplate.Styles(q).Priority = 9
+    docTemplate.Styles(q).Priority = 90
 End If
 Next q
 

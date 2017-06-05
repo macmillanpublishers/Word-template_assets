@@ -197,18 +197,18 @@
         "label": "Half Title Page"
       }
     ],
-    ".Section-Series-Pagessp": [
-      {
-        "type": "preface",
-        "label": "Series Page",
-        "class": "seriespage"
-      }
-    ],
     ".Section-Ad-Cardsac": [
       {
         "type": "preface",
         "label": "Ad Card",
         "class": "adcard"
+      }
+    ],
+    ".Section-Series-Pagessp": [
+      {
+        "type": "preface",
+        "label": "Series Page",
+        "class": "seriespage"
       }
     ],
     ".Section-Titlepagesti": [
@@ -253,12 +253,6 @@
         "type": "preface"
       }
     ],
-    ".Section-Blank-Pagesbl": [
-      {
-        "type": "preface",
-        "class": "blankpage"
-      }
-    ],
     ".Section-Intro-Frontmattersif": [
       {
         "type": "introduction"
@@ -286,11 +280,6 @@
         "label": "Conclusion"
       }
     ],
-    ".Section-Appendixsap": [
-      {
-        "type": "appendix"
-      }
-    ],
     ".Section-Afterwordsaw": [
       {
         "type": "afterword"
@@ -301,21 +290,21 @@
         "type": "acknowledgments"
       }
     ],
+    ".Section-Appendixsap": [
+      {
+        "type": "appendix"
+      }
+    ],
     ".Section-Glossarysgl": [
       {
         "type": "glossary"
       }
     ],
-    ".Section-Notessnt": [
+    ".Section-Excerpt-Chaptersec": [
       {
         "type": "appendix",
-        "label": "Notes",
-        "class": "notes"
-      }
-    ],
-    ".Section-Bibliographysbi": [
-      {
-        "type": "bibliography"
+        "label": "Excerpt",
+        "class": "excerptchapter"
       }
     ],
     ".Section-Excerpt-Openerseo": [
@@ -325,11 +314,16 @@
         "class": "excerptopener"
       }
     ],
-    ".Section-Excerpt-Chaptersec": [
+    ".Section-Bibliographysbi": [
+      {
+        "type": "bibliography"
+      }
+    ],
+    ".Section-Notessnt": [
       {
         "type": "appendix",
-        "label": "Excerpt",
-        "class": "excerptchapter"
+        "label": "Notes",
+        "class": "notes"
       }
     ],
     ".Section-About-Authorsaa": [
@@ -349,6 +343,12 @@
     ".Section-Indexsin": [
       {
         "type": "index"
+      }
+    ],
+    ".Section-Blank-Pagesbl": [
+      {
+        "type": "preface",
+        "class": "blankpage"
       }
     ]
   },
