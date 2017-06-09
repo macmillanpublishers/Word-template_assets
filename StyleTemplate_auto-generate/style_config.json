@@ -223,7 +223,7 @@
     ".Section-Contentsstc": {
       "type": "preface",
       "label": "Contents",
-      "class": "contents"
+      "class": "texttoc"
     },
     ".Section-Forewordsfw": {
       "type": "foreword"
