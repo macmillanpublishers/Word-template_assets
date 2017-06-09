@@ -532,7 +532,7 @@ End Function
 Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildColName As String, parentDict As Dictionary, _
   p_strFormatClassFor As String) As Dictionary
     ' This sub borrowed and changed from Erica's for creating jsons frm excel
-    ' Creates a subdict dictionary of column contents (key = column cihldName (passed value)
+    ' Creates a subdict dictionary of column contents (key = column childName (passed value)
     ' nests that subdict in a collection named for the SectionStart classname (passed value)
     ' adds them all to back to the dict that was passed in; adds subdict/collection to existing or creates new as needed
     Dim rowCount As Long
@@ -542,13 +542,13 @@ Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildCo
     Dim dict_subReturn
     Dim lngClassCol As Long
 
-  Select Case p_strFormatClassFor
-    Case "html"
-    ' Get the index # for column with contents in Row 2 exactly matching: "Class"
-      lngClassCol = getColumnByHeadingValue("Class", 2)
-    Case "vba"
-      lngClassCol = getColumnByHeadingValue("Full_Style_Name", 3)
-  End Select
+    Select Case p_strFormatClassFor
+      Case "html"
+      ' Get the index # for column with contents in Row 2 exactly matching: "Class"
+        lngClassCol = getColumnByHeadingValue("Class", 2)
+      Case "vba"
+        lngClassCol = getColumnByHeadingValue("Full_Style_Name", 3)
+    End Select
     
     For rowCount = StartRow To rngList.Rows.Count
         If rngList.Cells(rowCount, ColNum).Value <> vbNullString Then
@@ -557,17 +557,13 @@ Private Function HTMLcolumnLoopC(ColNum As Long, StartRow As Long, nestedChildCo
             strKey = rngList.Cells(rowCount, lngClassCol).Value
             strValue = rngList.Cells(rowCount, ColNum).Value
             If Not parentDict.Exists(strKey) Then
-                 'reset our Collection to empty
-                Set coll_Return = New Collection
                 ' setup subdict with key:value pair (key is nested child column name, value is from the cell)
                  dict_subReturn.Item(nestedChildColName) = strValue
-                ' add  subdict to new collection
-                coll_Return.Add dict_subReturn
-                ' add the collection to the parent dictionary with named as Section class
-                Set parentDict(strKey) = coll_Return
+                ' add the subdict to the parent dictionary with named as Section class
+                Set parentDict(strKey) = dict_subReturn
             Else
                 ' collection and nested dict already exist, here's how you add to them:
-                parentDict(strKey).Item(1)(nestedChildColName) = strValue
+                parentDict(strKey).Item(nestedChildColName) = strValue
             End If
         End If
     Next rowCount
@@ -773,11 +769,14 @@ Public Sub HTMLmappingsToJSON(p_strSearchFor As String, Optional p_boolUserInter
         End If
     Next colCount
     
-    ' Add hardcoded key/value to json for footnotes
+    ' Add hardcoded key/value pairs to json for footnotes and endnotes
     If p_strSearchFor = "html" Then
       Dim coll_footnoteSelector As New Collection
+      Dim coll_endnoteSelector As New Collection
       coll_footnoteSelector.Add ("div.footnote")
+      coll_endnoteSelector.Add ("div.endnotetext")
       Set dict_Defaults.Item("footnotetextselector") = coll_footnoteSelector
+      Set dict_Defaults.Item("endnotetextselector") = coll_endnoteSelector
     End If
 
     ' Convert to json
