@@ -159,6 +159,7 @@
     ".BoxListBulletbbl",
     ".Extract-BulletListextbl",
     ".ListBulletbl",
+    ".ListUnnumul",
     ".SidebarListBulletsbbl"
   ],
   "orderedlistparas": [
