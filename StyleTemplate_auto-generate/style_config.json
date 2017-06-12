@@ -184,175 +184,122 @@
     ".SpaceBreak-Internalint"
   ],
   "toplevelheads": {
-    ".Section-Front-Salessfs": [
-      {
-        "type": "preface",
-        "label": "Front Sales",
-        "class": "frontsales"
-      }
-    ],
-    ".Section-Halftitlesht": [
-      {
-        "type": "halftitlepage",
-        "label": "Half Title Page"
-      }
-    ],
-    ".Section-Ad-Cardsac": [
-      {
-        "type": "preface",
-        "label": "Ad Card",
-        "class": "adcard"
-      }
-    ],
-    ".Section-Series-Pagessp": [
-      {
-        "type": "preface",
-        "label": "Series Page",
-        "class": "seriespage"
-      }
-    ],
-    ".Section-Titlepagesti": [
-      {
-        "type": "titlepage",
-        "label": "Title Page"
-      }
-    ],
-    ".Section-Copyrightscr": [
-      {
-        "type": "copyright-page",
-        "label": "Copyright Page"
-      }
-    ],
-    ".Section-Dedicationsde": [
-      {
-        "type": "dedication",
-        "label": "Dedication"
-      }
-    ],
-    ".Section-Epigraphsepi": [
-      {
-        "type": "preface",
-        "label": "Epigraph",
-        "class": "epigraph"
-      }
-    ],
-    ".Section-Contentsstc": [
-      {
-        "type": "preface",
-        "label": "Contents",
-        "class": "contents"
-      }
-    ],
-    ".Section-Forewordsfw": [
-      {
-        "type": "foreword"
-      }
-    ],
-    ".Section-Prefacespf": [
-      {
-        "type": "preface"
-      }
-    ],
-    ".Section-Intro-Frontmattersif": [
-      {
-        "type": "introduction"
-      }
-    ],
-    ".Section-Intro-Chaptersic": [
-      {
-        "type": "chapter",
-        "label": "Introduction"
-      }
-    ],
-    ".Section-Partspt": [
-      {
-        "type": "part"
-      }
-    ],
-    ".Section-Chapterscp": [
-      {
-        "type": "chapter"
-      }
-    ],
-    ".Section-Conclusionscl": [
-      {
-        "type": "conclusion",
-        "label": "Conclusion"
-      }
-    ],
-    ".Section-Afterwordsaw": [
-      {
-        "type": "afterword"
-      }
-    ],
-    ".Section-Acknowledgmentssak": [
-      {
-        "type": "acknowledgments"
-      }
-    ],
-    ".Section-Appendixsap": [
-      {
-        "type": "appendix"
-      }
-    ],
-    ".Section-Glossarysgl": [
-      {
-        "type": "glossary"
-      }
-    ],
-    ".Section-Excerpt-Chaptersec": [
-      {
-        "type": "appendix",
-        "label": "Excerpt",
-        "class": "excerptchapter"
-      }
-    ],
-    ".Section-Excerpt-Openerseo": [
-      {
-        "type": "appendix",
-        "label": "Excerpt Introduction",
-        "class": "excerptopener"
-      }
-    ],
-    ".Section-Bibliographysbi": [
-      {
-        "type": "bibliography"
-      }
-    ],
-    ".Section-Notessnt": [
-      {
-        "type": "appendix",
-        "label": "Notes",
-        "class": "notes"
-      }
-    ],
-    ".Section-About-Authorsaa": [
-      {
-        "type": "appendix",
-        "label": "About the Author",
-        "class": "abouttheauthor"
-      }
-    ],
-    ".Section-Back-Adsba": [
-      {
-        "type": "appendix",
-        "label": "Ad",
-        "class": "backad"
-      }
-    ],
-    ".Section-Indexsin": [
-      {
-        "type": "index"
-      }
-    ],
-    ".Section-Blank-Pagesbl": [
-      {
-        "type": "preface",
-        "class": "blankpage"
-      }
-    ]
+    ".Section-Front-Salessfs": {
+      "type": "preface",
+      "label": "Front Sales",
+      "class": "frontsales"
+    },
+    ".Section-Halftitlesht": {
+      "type": "halftitlepage",
+      "label": "Half Title Page"
+    },
+    ".Section-Ad-Cardsac": {
+      "type": "preface",
+      "label": "Ad Card",
+      "class": "adcard"
+    },
+    ".Section-Series-Pagessp": {
+      "type": "preface",
+      "label": "Series Page",
+      "class": "seriespage"
+    },
+    ".Section-Titlepagesti": {
+      "type": "titlepage",
+      "label": "Title Page"
+    },
+    ".Section-Copyrightscr": {
+      "type": "copyright-page",
+      "label": "Copyright Page"
+    },
+    ".Section-Dedicationsde": {
+      "type": "dedication",
+      "label": "Dedication"
+    },
+    ".Section-Epigraphsepi": {
+      "type": "preface",
+      "label": "Epigraph",
+      "class": "epigraph"
+    },
+    ".Section-Contentsstc": {
+      "type": "preface",
+      "label": "Contents",
+      "class": "texttoc"
+    },
+    ".Section-Forewordsfw": {
+      "type": "foreword"
+    },
+    ".Section-Prefacespf": {
+      "type": "preface"
+    },
+    ".Section-Intro-Frontmattersif": {
+      "type": "introduction"
+    },
+    ".Section-Intro-Chaptersic": {
+      "type": "chapter",
+      "label": "Introduction"
+    },
+    ".Section-Partspt": {
+      "type": "part"
+    },
+    ".Section-Chapterscp": {
+      "type": "chapter"
+    },
+    ".Section-Conclusionscl": {
+      "type": "conclusion",
+      "label": "Conclusion"
+    },
+    ".Section-Afterwordsaw": {
+      "type": "afterword"
+    },
+    ".Section-Acknowledgmentssak": {
+      "type": "acknowledgments"
+    },
+    ".Section-Appendixsap": {
+      "type": "appendix"
+    },
+    ".Section-Glossarysgl": {
+      "type": "glossary"
+    },
+    ".Section-Excerpt-Chaptersec": {
+      "type": "appendix",
+      "label": "Excerpt",
+      "class": "excerptchapter"
+    },
+    ".Section-Excerpt-Openerseo": {
+      "type": "appendix",
+      "label": "Excerpt Introduction",
+      "class": "excerptopener"
+    },
+    ".Section-Bibliographysbi": {
+      "type": "bibliography"
+    },
+    ".Section-Notessnt": {
+      "type": "appendix",
+      "label": "Notes",
+      "class": "notes"
+    },
+    ".Section-About-Authorsaa": {
+      "type": "appendix",
+      "label": "About the Author",
+      "class": "abouttheauthor"
+    },
+    ".Section-Back-Adsba": {
+      "type": "appendix",
+      "label": "Ad",
+      "class": "bobad"
+    },
+    ".Section-Indexsin": {
+      "type": "index"
+    },
+    ".Section-Blank-Pagesbl": {
+      "type": "preface",
+      "class": "blankpage"
+    }
   },
   "footnotetextselector": [
     "div.footnote"
+  ],
+  "endnotetextselector": [
+    "div.endnotetext"
   ]
 }
