@@ -178,6 +178,13 @@
     ".ListAlphaSubentryasl",
     ".ListNumSubentrynsl"
   ],
+  "chaptertitleparas": [
+    ".ChapTitlect",
+    ".ChapTitleALTact"
+  ],
+  "chapternumberparas": [
+    ".ChapNumbercn"
+  ],
   "omitparas": [
     ".SectionBreaksbr"
   ],
