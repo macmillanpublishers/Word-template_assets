@@ -130,7 +130,7 @@
     ".Section-AppendixSAP": {
       "type": "appendix"
     },
-    ".Section-GlossaryAGL": {
+    ".Section-GlossarySGL": {
       "type": "glossary"
     },
     ".Section-Excerpt-ChapterSEC": {
