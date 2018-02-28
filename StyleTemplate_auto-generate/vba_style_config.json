@@ -2,6 +2,7 @@
   "versatileparas": [
   ],
   "bookmakerstyles": [
+    "Section-Book (BOOK)",
     "Section-Front-Sales (SFS)",
     "Section-Halftitle (SHT)",
     "Section-Ad-Card (SAC)",
@@ -36,6 +37,7 @@
     "Body-Text (Tx)"
   ],
   "allowedblankparas": [
+    "Section-Book (BOOK)",
     "Section-Front-Sales (SFS)",
     "Section-Halftitle (SHT)",
     "Section-Ad-Card (SAC)",
@@ -69,6 +71,7 @@
     "Section-Back-Matter-General (SBM)"
   ],
   "sectionstarts": [
+    "Section-Book (BOOK)",
     "Section-Front-Sales (SFS)",
     "Section-Halftitle (SHT)",
     "Section-Ad-Card (SAC)",
