@@ -6137,11 +6137,11 @@
     "ListLevelNumber": "0",
     "NoProofing": "False"
   },
-  "Num-Level-3-List-Paragraoh (Nl3p)": {
+  "Num-Level-3-List-Paragraph (Nl3p)": {
     "Usage_Notes": "",
-    "Style_Name": "Num-Level-3-List-Paragraoh",
+    "Style_Name": "Num-Level-3-List-Paragraph",
     "Style_Code": "Nl3p",
-    "NextParagraphStyle": "Num-Level-3-List-Paragraoh (Nl3p)",
+    "NextParagraphStyle": "Num-Level-3-List-Paragraph (Nl3p)",
     "Priority": "3",
     "QuickStyle": "False",
     "Type": "1",
@@ -6599,11 +6599,11 @@
     "ListLevelNumber": "0",
     "NoProofing": "False"
   },
-  "Alpha--Level-1-List (Al1)": {
+  "Alpha-Level-1-List (Al1)": {
     "Usage_Notes": "",
-    "Style_Name": "Alpha--Level-1-List",
+    "Style_Name": "Alpha-Level-1-List",
     "Style_Code": "Al1",
-    "NextParagraphStyle": "Alpha--Level-1-List (Al1)",
+    "NextParagraphStyle": "Alpha-Level-1-List (Al1)",
     "Priority": "3",
     "QuickStyle": "False",
     "Type": "1",
@@ -10955,11 +10955,11 @@
     "ListLevelNumber": "",
     "NoProofing": "False"
   },
-  "bold-italic (bi)": {
+  "bold-ital (bi)": {
     "Usage_Notes": "",
-    "Style_Name": "bold-italic",
+    "Style_Name": "bold-ital",
     "Style_Code": "bi",
-    "NextParagraphStyle": "bold-italic (bi)",
+    "NextParagraphStyle": "bold-ital (bi)",
     "Priority": "6",
     "QuickStyle": "False",
     "Type": "2",
